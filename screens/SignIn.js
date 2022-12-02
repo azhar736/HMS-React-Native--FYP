@@ -1,66 +1,41 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
 import PrimaryTitle from "../components/PrimaryTitle";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-const SignUp = () => {
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const NameHandler = (e) => {
-    setName(e);
-  };
-  const emailHandler = (e) => {
-    setMail(e);
-  };
-  const passwordHandler = (e) => {
-    setPassword(e);
-  };
-  const Submit = () => {
-    console.log("name:", name);
-    console.log("email:", mail);
-    console.log("password:", password);
-  };
+import PrimaryButton from "../components/PrimaryButton";
+const SignIn = () => {
   return (
     <View style={styles.rootContainer}>
       <Ionicons name="arrow-back-sharp" size={24} color="black" />
       <View style={styles.title}>
-        <PrimaryTitle title="Create Your Account" />
+        <PrimaryTitle title="Login Your Account" />
       </View>
       <View style={styles.formContainer}>
         <TextInput
-          keyboardType="default"
-          placeholder="Enter Your FULL Name"
-          style={styles.input}
-          value={name}
-          onChange={NameHandler}
-        />
-        <TextInput
           keyboardType="email-address"
-          placeholder="Enter Your email - address"
+          placeholder="email"
           style={styles.input}
-          value={mail}
-          onChange={emailHandler}
+          //   value={mail}
+          //   onChange={emailHandler}
         />
         <TextInput
           keyboardType="visible-password"
           placeholder="Password"
           style={styles.input}
-          value={password}
-          onChange={passwordHandler}
+          //   value={password}
+          //   onChange={passwordHandler}
         />
       </View>
-      <PrimaryButton onTap={Submit} buttonText="Sign UP" />
+      <PrimaryButton buttonText="SignIn" />
       <View style={styles.textContainer}>
         <Text style={styles.subText}>
-          Already have an account?<Text style={styles.linkText}>Sign in</Text>
+          Don't have a account?<Text style={styles.linkText}>Sign UP</Text>
         </Text>
       </View>
     </View>
   );
 };
 
-export default SignUp;
+export default SignIn;
 
 const styles = StyleSheet.create({
   rootContainer: {

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const PrimaryTitle = () => {
+const PrimaryTitle = ({ title }) => {
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Create Your Account</Text>
+      <Text style={styles.title}>{title}</Text>
     </View>
   );
 };
@@ -15,8 +15,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "black",
-    borderWidth: 2,
-    borderColor: "black",
     justifyContent: "center",
     alignItems: "center",
     padding: 20,

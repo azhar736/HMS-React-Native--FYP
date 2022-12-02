@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const PrimaryButton = () => {
+const PrimaryButton = ({ onTap, buttonText }) => {
   return (
-    <View>
-      <Text style={styles.title}>Sign UP</Text>
-    </View>
+    <Pressable onPress={onTap}>
+      <View>
+        <Text style={styles.title}>{buttonText}</Text>
+      </View>
+    </Pressable>
   );
 };
 
@@ -12,10 +14,16 @@ export default PrimaryButton;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: "500",
     color: "black",
     borderWidth: 2,
-    borderColor: "black",
-    backgroundColor: "#1AB65C",
+    borderColor: "#11baa9",
+    borderRadius: 24,
+    backgroundColor: "#24edd9",
+    paddingVertical: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
 });
