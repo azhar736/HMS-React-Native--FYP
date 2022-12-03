@@ -4,6 +4,7 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import SignIn from "./screens/SignIn";
 import SignUp from "./screens/SignUp";
+import UserDahboard from "./screens/UserDahboard";
 
 export default function App() {
   return (
@@ -11,7 +12,8 @@ export default function App() {
       {/* <SignUp /> */}
       {/* <SignIn /> */}
       {/* <Profile /> */}
-      <Home />
+      {/* <Home /> */}
+      <UserDahboard />
     </View>
   );
 }
