@@ -3,6 +3,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import Category from "../components/Category";
 import Card from "../components/Card";
+import Slider from "../components/Slider";
 const Home = () => {
   return (
     <ScrollView style={styles.rootContainer}>
@@ -33,16 +34,7 @@ const Home = () => {
         <Category Title="Trending" style={styles.category} isActive={false} />
       </View>
       <View style={styles.container}>
-        <View style={styles.ratingBox}>
-          <View style={styles.ratingContainer}>
-            <Text>4.8</Text>
-          </View>
-        </View>
-        <View style={styles.headingContainer}>
-          <Text>Heading</Text>
-          <Text>Location</Text>
-          <Text>Price/PerNight</Text>
-        </View>
+        <Slider />
       </View>
       <View style={styles.textContainer}>
         <View>
@@ -160,3 +152,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
+{
+  /* <View style={styles.ratingBox}>
+<View style={styles.ratingContainer}>
+  <Text>4.8</Text>
+</View>
+</View>
+<View style={styles.headingContainer}>
+<Text>Heading</Text>
+<Text>Location</Text>
+<Text>Price/PerNight</Text>
+</View> */
+}
