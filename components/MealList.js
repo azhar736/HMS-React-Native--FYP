@@ -81,13 +81,6 @@ const MealList = () => {
     // console.log(itemData.item);
     return <MealsItem {...itemData.item} />;
   };
-  const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    <ScrollView>
-      <TouchableOpacity onPress={onPress}>
-        <Text>{item.title}</Text>
-      </TouchableOpacity>
-    </ScrollView>
-  );
   return (
     <View style={styles.rootContainer}>
       <View style={styles.listContainer}>

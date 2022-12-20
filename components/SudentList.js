@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import PrimaryTitle from "./PrimaryTitle";
+import Toggle from "./Toggle";
 const SudentList = () => {
   return (
     <View>
@@ -32,7 +33,7 @@ const SudentList = () => {
             <Text style={styles.text}>Azhar</Text>
           </View>
           <View style={styles.textCol4}>
-            <Text style={styles.text}>Active</Text>
+            <Toggle />
           </View>
         </View>
         <View style={styles.textContainer}>
@@ -47,7 +48,7 @@ const SudentList = () => {
             <Text style={styles.text}>Azhar</Text>
           </View>
           <View style={styles.textCol4}>
-            <Text style={styles.text}>Active</Text>
+            <Toggle />
           </View>
         </View>
         <View style={styles.textContainer}>
@@ -62,7 +63,7 @@ const SudentList = () => {
             <Text style={styles.text}>Azhar</Text>
           </View>
           <View style={styles.textCol4}>
-            <Text style={styles.text}>Active</Text>
+            <Toggle />
           </View>
         </View>
         <View style={styles.textContainer}>
@@ -77,7 +78,7 @@ const SudentList = () => {
             <Text style={styles.text}>Azhar</Text>
           </View>
           <View style={styles.textCol4}>
-            <Text style={styles.text}>Active</Text>
+            <Toggle />
           </View>
         </View>
         <View style={styles.textContainer}>
@@ -92,7 +93,7 @@ const SudentList = () => {
             <Text style={styles.text}>Azhar</Text>
           </View>
           <View style={styles.textCol4}>
-            <Text style={styles.text}>Active</Text>
+            <Toggle />
           </View>
         </View>
         <View style={styles.textContainer}>
@@ -107,7 +108,7 @@ const SudentList = () => {
             <Text style={styles.text}>Azhar</Text>
           </View>
           <View style={styles.textCol4}>
-            <Text style={styles.text}>Active</Text>
+            <Toggle />
           </View>
         </View>
         <View style={styles.totalContainer}>

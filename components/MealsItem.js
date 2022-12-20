@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
 
 const MealsItem = ({ id, title, units }) => {
   const navigation = useNavigation();

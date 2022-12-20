@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import StudentList from "../components/SudentList";
 import MealList from "../components/MealList";
 import MealsForm from "../components/MealsForm";
+import Model from "../components/Model";
 const Drawer = createDrawerNavigator();
 const AllMeals = () => {
   return (
@@ -27,6 +28,7 @@ const MealForm = () => {
     </View>
   );
 };
+
 const WorkerAdminDashboard = () => {
   return (
     <NavigationContainer>
