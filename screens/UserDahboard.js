@@ -2,12 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SecondryButton from "../components/SecondryButton";
 import User from "../components/User";
 import RegisterAComplains from "../components/RegisterAComplains";
 import UserAttendenceInfo from "../components/UserAttendenceInfo";
 import SubmitBills from "../components/SubmitBills";
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import QRScanner from "../components/QRScanner";
 function RegisterAComplain() {
   return (
     <View style={{ flex: 1 }}>
@@ -32,6 +34,10 @@ const SubmitBill = () => {
 
 function UserDashboard() {
   return <User />;
+}
+function Scan() {
+  console.log("press");
+  return <QRScanner />;
 }
 // function MyDrawer() {
 //   return (
@@ -61,7 +67,22 @@ const UserDahboard = () => {
         }}
         useLegacyImplementation
       >
-        <Drawer.Screen name="User Dashboard" component={UserDashboard} />
+        <Drawer.Screen
+          name="User Dashboard"
+          component={UserDashboard}
+          options={{
+            headerRight: () => (
+              <View style={{ marginRight: 25 }}>
+                <MaterialCommunityIcons
+                  name="line-scan"
+                  size={28}
+                  color="black"
+                  onPress={Scan}
+                />
+              </View>
+            ),
+          }}
+        />
         <Drawer.Screen
           name="Register A Complain"
           component={RegisterAComplain}

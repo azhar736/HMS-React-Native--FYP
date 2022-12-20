@@ -10,6 +10,7 @@ import SignUp from "./screens/SignUp";
 import UserDahboard from "./screens/UserDahboard";
 import Slider from "./components/Slider";
 import WorkerAdminDashboard from "./screens/WorkerAdminDashboard";
+import AdminDashboard from "./screens/AdminDashboard";
 
 export default function App() {
   return (
@@ -20,8 +21,9 @@ export default function App() {
         {/* <Profile /> */}
         {/* <Home /> */}
         {/* <Slider /> */}
-        <UserDahboard />
+        {/* <UserDahboard /> */}
         {/* <WorkerAdminDashboard /> */}
+        <AdminDashboard />
       </View>
     </Provider>
   );
