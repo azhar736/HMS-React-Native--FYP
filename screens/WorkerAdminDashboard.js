@@ -31,18 +31,16 @@ const MealForm = () => {
 
 const WorkerAdminDashboard = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        defaultScreenOptions={{
-          title: "Admin Dashboard",
-        }}
-        useLegacyImplementation
-      >
-        <Drawer.Screen name="Student List" component={AllStudent} />
-        <Drawer.Screen name="Meals List" component={AllMeals} />
-        <Drawer.Screen name="Meals Form" component={MealForm} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator
+      defaultScreenOptions={{
+        title: "Worker Admin Dashboard",
+      }}
+      useLegacyImplementation
+    >
+      <Drawer.Screen name="Student List" component={AllStudent} />
+      <Drawer.Screen name="Meals List" component={AllMeals} />
+      <Drawer.Screen name="Meals Form" component={MealForm} />
+    </Drawer.Navigator>
   );
 };
 

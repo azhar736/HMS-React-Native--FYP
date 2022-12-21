@@ -10,6 +10,7 @@ import SubmitBills from "../components/SubmitBills";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import QRScanner from "../components/QRScanner";
+import { useNavigation } from "@react-navigation/native";
 function RegisterAComplain() {
   return (
     <View style={{ flex: 1 }}>
@@ -35,10 +36,10 @@ const SubmitBill = () => {
 function UserDashboard() {
   return <User />;
 }
-function Scan() {
-  console.log("press");
-  return <QRScanner />;
-}
+// function Scan() {
+//   console.log("press");
+//   return <QRScanner />;
+// }
 // function MyDrawer() {
 //   return (
 //     <Drawer.Navigator useLegacyImplementation>
@@ -49,6 +50,7 @@ function Scan() {
 // }
 const Drawer = createDrawerNavigator();
 const UserDahboard = () => {
+  const navigation = useNavigation();
   const registerComplain = () => {
     console.log("Complain registrated Successfully!");
   };
@@ -60,40 +62,35 @@ const UserDahboard = () => {
     console.log("generate Bill");
   };
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        defaultScreenOptions={{
-          title: "User Dashboard",
+    <Drawer.Navigator
+      defaultScreenOptions={{
+        title: "User Dashboard",
+      }}
+      useLegacyImplementation
+    >
+      <Drawer.Screen
+        name="User Dashboard"
+        component={UserDashboard}
+        options={{
+          headerRight: () => (
+            <View style={{ marginRight: 25 }}>
+              <MaterialCommunityIcons
+                name="line-scan"
+                size={28}
+                color="black"
+                onPress={() => navigation.navigate("Scanner")}
+              />
+            </View>
+          ),
         }}
-        useLegacyImplementation
-      >
-        <Drawer.Screen
-          name="User Dashboard"
-          component={UserDashboard}
-          options={{
-            headerRight: () => (
-              <View style={{ marginRight: 25 }}>
-                <MaterialCommunityIcons
-                  name="line-scan"
-                  size={28}
-                  color="black"
-                  onPress={Scan}
-                />
-              </View>
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Register A Complain"
-          component={RegisterAComplain}
-        />
-        <Drawer.Screen
-          name="Check Attendence Details"
-          component={TrackAttendence}
-        />
-        <Drawer.Screen name="Submit Bill" component={SubmitBill} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+      />
+      <Drawer.Screen name="Register A Complain" component={RegisterAComplain} />
+      <Drawer.Screen
+        name="Check Attendence Details"
+        component={TrackAttendence}
+      />
+      <Drawer.Screen name="Submit Bill" component={SubmitBill} />
+    </Drawer.Navigator>
     // <View style={styles.rootContainer}>
     //   <View style={styles.topBar}>
     //     <View>

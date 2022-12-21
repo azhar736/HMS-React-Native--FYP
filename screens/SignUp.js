@@ -1,12 +1,20 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import PrimaryTitle from "../components/PrimaryTitle";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 const SignUp = () => {
   const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
+  const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
+  const navigation = useNavigation();
+  // const [credentialsInvalid, setCredentialsInvalid] = useState({
+  //   validname: false,
+  //   validemail: false,
+  //   validpassword: false,
+  // });
+
   const NameHandler = (e) => {
     setName(e);
   };
@@ -16,14 +24,32 @@ const SignUp = () => {
   const passwordHandler = (e) => {
     setPassword(e);
   };
+  // const InputValidation = () => {
+  //   const nameIsValid = name.length > 3;
+  //   const emailIsValid = email.includes("@");
+  //   const passwordIsValid = password.length > 6;
+  //   if (!emailIsValid) {
+  //     Alert.alert("Invalid input", "Please enter a Valid Name");
+  //   } else if (!emailIsValid) {
+  //     Alert.alert("Invalid input", "Please enter a Valid Email");
+  //   } else if (!passwordIsValid) {
+  //     Alert.alert("Invalid input", "Please enter a Valid Password");
+  //   }
+
+  //   setCredentialsInvalid({
+  //     validname: !nameIsValid,
+  //     validemail: !emailIsValid,
+  //     validpassword: !passwordIsValid,
+  //   });
+  // };
   const Submit = () => {
+    // InputValidation();
     console.log("name:", name);
-    console.log("email:", mail);
+    console.log("email:", email);
     console.log("password:", password);
   };
   return (
     <View style={styles.rootContainer}>
-      <Ionicons name="arrow-back-sharp" size={24} color="black" />
       <View style={styles.title}>
         <PrimaryTitle title="Create Your Account" />
       </View>
@@ -39,7 +65,7 @@ const SignUp = () => {
           keyboardType="email-address"
           placeholder="Enter Your email - address"
           style={styles.input}
-          value={mail}
+          value={email}
           onChange={emailHandler}
         />
         <TextInput
@@ -50,11 +76,19 @@ const SignUp = () => {
           onChange={passwordHandler}
         />
       </View>
-      <PrimaryButton onTap={Submit} buttonText="Sign UP" />
+      <View style={styles.buttonContainer}>
+        <PrimaryButton onTap={Submit} buttonText="Sign UP" />
+      </View>
       <View style={styles.textContainer}>
-        <Text style={styles.subText}>
-          Already have an account?<Text style={styles.linkText}>Sign in</Text>
-        </Text>
+        <Text style={styles.subText}>Already have an account?</Text>
+        <View style={styles.hightlightedText}>
+          <Text
+            onPress={() => navigation.navigate("Login")}
+            style={styles.linkText}
+          >
+            Sign in
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -84,6 +118,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 8,
+    marginTop: 16,
+    flexDirection: "row",
+    alignItems: "center",
   },
   subText: {
     fontSize: 12,
@@ -93,5 +130,11 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  hightlightedText: {
+    marginLeft: 4,
+  },
+  buttonContainer: {
+    alignItems: "center",
   },
 });

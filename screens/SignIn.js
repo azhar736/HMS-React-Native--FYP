@@ -1,11 +1,34 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryTitle from "../components/PrimaryTitle";
 import { Ionicons } from "@expo/vector-icons";
 import PrimaryButton from "../components/PrimaryButton";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigation = useNavigation();
+
+  const formSubmit = () => {
+    // console.log(email);
+    // console.log(password);
+    if (email === "admin@gmail.com") {
+      navigation.navigate("Admin");
+    } else if (email === "workeradmin@gmail.com") {
+      navigation.navigate("WorkerAdmin");
+    } else {
+      // Alert.alert("UnAuthorized", "Please Register first");
+      navigation.navigate("UserDashboard");
+    }
+  };
   return (
     <View style={styles.rootContainer}>
-      <Ionicons name="arrow-back-sharp" size={24} color="black" />
+      {/* <Ionicons
+        onPress={() => navigate.navigate("Signup")}
+        name="arrow-back-sharp"
+        size={24}
+        color="black"
+      /> */}
       <View style={styles.title}>
         <PrimaryTitle title="Login Your Account" />
       </View>
@@ -14,21 +37,27 @@ const SignIn = () => {
           keyboardType="email-address"
           placeholder="email"
           style={styles.input}
-          //   value={mail}
-          //   onChange={emailHandler}
+          onChangeText={(e) => setEmail(e)}
         />
         <TextInput
           keyboardType="visible-password"
           placeholder="Password"
           style={styles.input}
-          //   value={password}
-          //   onChange={passwordHandler}
+          onChangeText={(e) => setPassword(e)}
         />
       </View>
-      <PrimaryButton buttonText="SignIn" />
+      <View style={styles.buttonContainer}>
+        <PrimaryButton buttonText="SignIn" onTap={formSubmit} />
+      </View>
       <View style={styles.textContainer}>
         <Text style={styles.subText}>
-          Don't have a account?<Text style={styles.linkText}>Sign UP</Text>
+          Don't have a account?
+          <Text
+            onPress={() => navigation.navigate("Signup")}
+            style={styles.linkText}
+          >
+            Sign UP
+          </Text>
         </Text>
       </View>
     </View>
@@ -59,6 +88,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 8,
+    marginTop: 8,
   },
   subText: {
     fontSize: 12,
@@ -68,5 +98,8 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  buttonContainer: {
+    alignItems: "center",
   },
 });
