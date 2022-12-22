@@ -91,41 +91,6 @@ const UserDahboard = () => {
       />
       <Drawer.Screen name="Submit Bill" component={SubmitBill} />
     </Drawer.Navigator>
-    // <View style={styles.rootContainer}>
-    //   <View style={styles.topBar}>
-    //     <View>
-    //       <Ionicons name="arrow-back-sharp" size={24} color="black" />
-    //     </View>
-    //     <View>
-    //       <Text style={styles.heading}>User Dashboard</Text>
-    //     </View>
-    //     <View>
-    //       <MaterialCommunityIcons name="line-scan" size={24} color="black" />
-    //     </View>
-    //   </View>
-    //   <View style={styles.container}>
-    //     <View style={styles.leftContainer}>
-    //       <SecondryButton buttonText="Complain" onPress={registerComplain} />
-    //       <SecondryButton buttonText="UpdateProfile" onPress={updateProfile} />
-    //       <SecondryButton buttonText="Generate Bill" onPress={generateBill} />
-    //       <SecondryButton buttonText="Submit Bill" onPress={submitBill} />
-    //     </View>
-    //     <View style={styles.rightContainer}>
-    //       <View style={styles.welcomeContainer}>
-    //         <Text style={styles.welcomeText}>Welcome</Text>
-    //       </View>
-    //       <View>
-    //         <Text>Break-Fast :7.30 AM to 9:00 AM</Text>
-    //         <Text>Lunch :12.30 PM to 1.30 PM</Text>
-    //         <Text>Dinner :7.30 PM to 8:30 PM</Text>
-    //       </View>
-    //       <Text>Welcome</Text>
-    //       <Text>Welcome</Text>
-    //       <Text>Welcome</Text>
-    //       <Text>Welcome</Text>
-    //     </View>
-    //   </View>
-    // </View>
   );
 };
 
