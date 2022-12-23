@@ -16,9 +16,11 @@ const SignIn = () => {
       navigation.navigate("Admin");
     } else if (email === "workeradmin@gmail.com") {
       navigation.navigate("WorkerAdmin");
-    } else {
+    } else if (email == "user@gmail.com") {
       // Alert.alert("UnAuthorized", "Please Register first");
       navigation.navigate("UserDashboard");
+    } else {
+      Alert.alert("UnAuthorized", "Please Login with correct credentails");
     }
   };
   return (

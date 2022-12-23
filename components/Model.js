@@ -1,7 +1,10 @@
 import { Button, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-native-qrcode-svg";
+// import QRCode from "react-qr-code";
+import QRCode from "react-native-qrcode-generator";
 const Model = ({ model, modelAction, total }) => {
+  var id = "45678534567";
   const ModelClose = () => {
     modelAction();
   };
@@ -19,9 +22,21 @@ const Model = ({ model, modelAction, total }) => {
           </View>
           <View style={styles.svgContainer}>
             <QRCode
+              value={`${id}_${total}`}
+              size={200}
+              bgColor="black"
+              fgColor="white"
+            />
+            {/* <QRCode
               size={130}
               value={[{ data: "2345643" }, { data: "_" }, { data: total }]}
-            />
+            /> */}
+            {/* <QRCode
+              size={256}
+              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              value="Hello"
+              viewBox={`0 0 256 256`}
+            /> */}
           </View>
           {/* <Button title="Close Modal" onPress={ModelClose} /> */}
         </Pressable>

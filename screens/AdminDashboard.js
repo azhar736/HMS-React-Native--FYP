@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { StyleSheet, Text, View } from "react-native";
 import AllStudents from "../components/AllStudents";
@@ -15,6 +15,10 @@ const AllComplain = () => {
 //   return <EditModel />;
 // };
 const AdminDashboard = () => {
+  const navigation = useNavigation();
+  const Logout = () => {
+    navigation.navigate("Login");
+  };
   return (
     <Drawer.Navigator
       defaultScreenOptions={{
@@ -24,6 +28,7 @@ const AdminDashboard = () => {
     >
       <Drawer.Screen name="Admin Dashboard" component={Admin} />
       <Drawer.Screen name="All Complains" component={AllComplain} />
+      <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
 };

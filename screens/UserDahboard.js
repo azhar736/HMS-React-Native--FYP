@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
@@ -61,6 +61,9 @@ const UserDahboard = () => {
   const generateBill = () => {
     console.log("generate Bill");
   };
+  const Logout = () => {
+    navigation.navigate("Login");
+  };
   return (
     <Drawer.Navigator
       defaultScreenOptions={{
@@ -90,6 +93,7 @@ const UserDahboard = () => {
         component={TrackAttendence}
       />
       <Drawer.Screen name="Submit Bill" component={SubmitBill} />
+      <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
 };

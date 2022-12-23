@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import StudentList from "../components/SudentList";
 import MealList from "../components/MealList";
@@ -30,6 +30,10 @@ const MealForm = () => {
 };
 
 const WorkerAdminDashboard = () => {
+  const navigation = useNavigation();
+  const Logout = () => {
+    navigation.navigate("Login");
+  };
   return (
     <Drawer.Navigator
       defaultScreenOptions={{
@@ -40,6 +44,7 @@ const WorkerAdminDashboard = () => {
       <Drawer.Screen name="Student List" component={AllStudent} />
       <Drawer.Screen name="Meals List" component={AllMeals} />
       <Drawer.Screen name="Meals Form" component={MealForm} />
+      <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
 };
