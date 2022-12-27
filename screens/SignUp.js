@@ -2,13 +2,20 @@ import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import PrimaryTitle from "../components/PrimaryTitle";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { BASE_URL } from "../env.config";
+import axios from "axios";
+
 const SignUp = () => {
   const [name, setName] = useState("");
+  const [isActive, setIsActive] = useState(true);
+  const [accountType, setaccountType] = useState("STUDENT");
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigation = useNavigation();
+
   // const [credentialsInvalid, setCredentialsInvalid] = useState({
   //   validname: false,
   //   validemail: false,
@@ -23,6 +30,9 @@ const SignUp = () => {
   };
   const passwordHandler = (e) => {
     setPassword(e);
+  };
+  const confirmPasswordHandler = (e) => {
+    setConfirmPassword(e);
   };
   // const InputValidation = () => {
   //   const nameIsValid = name.length > 3;
@@ -42,11 +52,29 @@ const SignUp = () => {
   //     validpassword: !passwordIsValid,
   //   });
   // };
+  const sendRequest = async () => {
+    console.log(`${BASE_URL}addUser`);
+    try {
+      const response = await axios.post(`${BASE_URL}addUser`, {
+        name,
+        email,
+        password,
+        confirmPassword,
+        isActive,
+        accountType,
+      });
+      const data1 = await response.data;
+      console.log(data1);
+    } catch (error) {
+      console.log("error", error.message);
+    }
+  };
   const Submit = () => {
-    // InputValidation();
-    console.log("name:", name);
-    console.log("email:", email);
-    console.log("password:", password);
+    // console.log("email", email);
+    // console.log("name", name);
+    // console.log("password", password);
+    // console.log("confirmPassword", confirmPassword);
+    sendRequest();
   };
   return (
     <View style={styles.rootContainer}>
@@ -59,21 +87,28 @@ const SignUp = () => {
           placeholder="Enter Your FULL Name"
           style={styles.input}
           value={name}
-          onChange={NameHandler}
+          onChangeText={NameHandler}
         />
         <TextInput
           keyboardType="email-address"
           placeholder="Enter Your email - address"
           style={styles.input}
           value={email}
-          onChange={emailHandler}
+          onChangeText={emailHandler}
         />
         <TextInput
           keyboardType="visible-password"
           placeholder="Password"
           style={styles.input}
           value={password}
-          onChange={passwordHandler}
+          onChangeText={passwordHandler}
+        />
+        <TextInput
+          keyboardType="visible-password"
+          placeholder="Confirm Password"
+          style={styles.input}
+          value={confirmPassword}
+          onChangeText={confirmPasswordHandler}
         />
       </View>
       <View style={styles.buttonContainer}>

@@ -19,32 +19,30 @@ import EditModel from "./components/EditModel";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Signup" component={SignUp} />
-          <Stack.Screen name="Login" component={SignIn} />
-          <Stack.Screen name="UserDashboard" component={UserDahboard} />
-          <Stack.Screen name="Scanner" component={QRScanner} />
-          <Stack.Screen name="WorkerAdmin" component={WorkerAdminDashboard} />
-          <Stack.Screen name="Admin" component={AdminDashboard} />
-          <Stack.Screen name="EditUser" component={EditModel} />
-          {/* <SignUp /> */}
-          {/* <SignIn /> */}
-          {/* <Profile /> */}
-          {/* <Home /> */}
-          {/* <Slider /> */}
-          {/* <QRScanner /> */}
-          {/* <UserDahboard /> */}
-          {/* <WorkerAdminDashboard /> */}
-          {/* <AdminDashboard /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Signup" component={SignUp} />
+        <Stack.Screen name="Login" component={SignIn} />
+        <Stack.Screen name="UserDashboard" component={UserDahboard} />
+        <Stack.Screen name="Scanner" component={QRScanner} />
+        <Stack.Screen name="WorkerAdmin" component={WorkerAdminDashboard} />
+        <Stack.Screen name="Admin" component={AdminDashboard} />
+        <Stack.Screen name="EditUser" component={EditModel} />
+        {/* <SignUp /> */}
+        {/* <SignIn /> */}
+        {/* <Profile /> */}
+        {/* <Home /> */}
+        {/* <Slider /> */}
+        {/* <QRScanner /> */}
+        {/* <UserDahboard /> */}
+        {/* <WorkerAdminDashboard /> */}
+        {/* <AdminDashboard /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
