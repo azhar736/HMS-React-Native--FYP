@@ -4,11 +4,28 @@ import { Ionicons } from "@expo/vector-icons";
 import PrimaryButton from "../components/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { BASE_URL } from "../env.config";
+import axios from "axios";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginIsTrue, setLoginIsTrue] = useState(false);
   const navigation = useNavigation();
-
+  const sendRequest = async () => {
+    console.log(`${BASE_URL}loginUser`);
+    try {
+      const response = await axios.post(`${BASE_URL}loginUser`, {
+        email,
+        password,
+      });
+      const data1 = await response.data;
+      // console.log(data1);
+      setLoginIsTrue(true);
+    } catch (error) {
+      console.log("error", error.message);
+    }
+  };
+  console.log("The State", loginIsTrue);
   const formSubmit = () => {
     // console.log(email);
     // console.log(password);
@@ -16,13 +33,17 @@ const SignIn = () => {
       navigation.navigate("Admin");
     } else if (email === "workeradmin@gmail.com") {
       navigation.navigate("WorkerAdmin");
-    } else if (email == "user@gmail.com") {
-      // Alert.alert("UnAuthorized", "Please Register first");
+    } else {
+      sendRequest();
+    }
+
+    if (loginIsTrue) {
       navigation.navigate("UserDashboard");
     } else {
-      Alert.alert("UnAuthorized", "Please Login with correct credentails");
+      Alert.alert("Plese try to login with correct credentials");
     }
   };
+
   return (
     <View style={styles.rootContainer}>
       {/* <Ionicons

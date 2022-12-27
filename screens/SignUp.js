@@ -65,6 +65,7 @@ const SignUp = () => {
       });
       const data1 = await response.data;
       console.log(data1);
+      navigation.navigate("Login");
     } catch (error) {
       console.log("error", error.message);
     }

@@ -1,3 +1,5 @@
+import axios from "axios";
+import { BASE_URL } from "../env.config";
 import {
   FlatList,
   ScrollView,
@@ -7,6 +9,7 @@ import {
   View,
 } from "react-native";
 import MealsItem from "./MealsItem";
+import { useEffect, useState } from "react";
 
 const MealList = () => {
   const DATA = [
@@ -76,6 +79,16 @@ const MealList = () => {
       units: "130",
     },
   ];
+  const [meals, setMeals] = useState([]);
+  useEffect(() => {
+    const fetchList = async () => {
+      const response = await axios.get(`${BASE_URL}allMeals`);
+      const data1 = response.data;
+      // console.log("The meals list", data1.data);
+      setMeals(data1.data);
+    };
+    fetchList();
+  }, []);
 
   const renderItem = (itemData) => {
     // console.log(itemData.item);
@@ -90,11 +103,10 @@ const MealList = () => {
             <Text style={styles.heading}>Meals List</Text>
             <Text style={styles.heading}>Units</Text>
           </View>
-          <FlatList
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
+          <FlatList data={meals} renderItem={renderItem} />
+          {/* {meals.map((item) => {
+            console.log("The item is: ", item);
+          })} */}
         </View>
       </View>
     </View>

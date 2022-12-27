@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-const MealsItem = ({ id, title, units }) => {
+const MealsItem = ({ id, mealName, units }) => {
   const navigation = useNavigation();
   const expensePressHandler = () => {
     // navigation.navigate("ManageExpenses", {
@@ -17,7 +17,7 @@ const MealsItem = ({ id, title, units }) => {
     >
       <View style={styles.rootContainer}>
         <View style={styles.leftcontainer}>
-          <Text style={styles.description}>{title}</Text>
+          <Text style={styles.description}>{mealName}</Text>
         </View>
         <View style={styles.rightContainer}>
           <Text style={styles.description}>{units}</Text>
