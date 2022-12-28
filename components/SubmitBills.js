@@ -5,7 +5,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import PrimaryButton from "./PrimaryButton";
 import PrimaryTitle from "./PrimaryTitle";
+import axios from "axios";
+import { BASE_URL } from "../env.config";
+import ConvertToBase64 from "../helpers/ConverToBase64";
+
 const SubmitBills = () => {
+  const [loading, setLoading] = useState(false);
+  const [uploadUrl, setUploadUrl] = useState("");
   const [images, setImages] = useState(null);
 
   const pickFromGallery = async () => {
@@ -18,7 +24,12 @@ const SubmitBills = () => {
     });
     if (!data.canceled) {
       data.assets.map((item) => {
-        console.log(item.uri);
+        // console.log(item.uri);
+        // let str1 = item.uri;
+        // let str2 = str1.slice(7);
+        // console.log(str2);
+        // setUrl(item.uri);
+        setUploadUrl(item.uri);
       });
     }
   };
@@ -32,8 +43,26 @@ const SubmitBills = () => {
     });
     if (!data.canceled) {
       data.assets.map((item) => {
-        console.log(item.uri);
+        // console.log(item.uri);
+        // setUrl(item.uri);
       });
+    }
+  };
+
+  const UploadImage = async () => {
+    // console.log(url);
+    // let uri = url.uri;
+    // console.log(uri);
+    try {
+      // const file = e.target.files[0];
+      // const base64 = await ConvertToBase64(file);
+      const formdata = new FormData();
+      formdata.append("image", uploadUrl);
+      const response = await axios.post(`${BASE_URL}billPaid`, formdata);
+      const data1 = response.data;
+      console.log("The Uploaded image url", data1);
+    } catch (error) {
+      console.log("message:", error.message);
     }
   };
   return (
@@ -65,7 +94,7 @@ const SubmitBills = () => {
           </Pressable>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton buttonText="Submit" />
+          <PrimaryButton buttonText="Submit" onTap={UploadImage} />
         </View>
       </View>
     </View>

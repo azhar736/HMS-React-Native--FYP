@@ -19,8 +19,10 @@ const SignIn = () => {
         password,
       });
       const data1 = await response.data;
-      // console.log(data1);
-      setLoginIsTrue(true);
+      console.log("The Data from the server", data1.data);
+      if (data1) {
+        setLoginIsTrue(true);
+      }
     } catch (error) {
       console.log("error", error.message);
     }
@@ -35,12 +37,6 @@ const SignIn = () => {
       navigation.navigate("WorkerAdmin");
     } else {
       sendRequest();
-    }
-
-    if (loginIsTrue) {
-      navigation.navigate("UserDashboard");
-    } else {
-      Alert.alert("Plese try to login with correct credentials");
     }
   };
 
