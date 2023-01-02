@@ -1,8 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const Card = () => {
+  const navigation = useNavigation();
   return (
-    <View style={styles.rootContainer}>
+    <Pressable
+      onPress={() => navigation.navigate("RoomDetails")}
+      style={styles.rootContainer}
+    >
       <View style={styles.imageContainer}>
         <View>
           <Text>Image</Text>
@@ -34,7 +39,7 @@ const Card = () => {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -49,6 +54,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
+    borderWidth: 2,
+    borderColor: "#58fcb9",
   },
   imageContainer: {
     backgroundColor: "#50f2ad",

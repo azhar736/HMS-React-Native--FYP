@@ -22,6 +22,7 @@ const SignIn = () => {
       console.log("The Data from the server", data1.data);
       if (data1) {
         setLoginIsTrue(true);
+        navigation.navigate("Home");
       }
     } catch (error) {
       console.log("error", error.message);

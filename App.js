@@ -16,6 +16,7 @@ import WorkerAdminDashboard from "./screens/WorkerAdminDashboard";
 import AdminDashboard from "./screens/AdminDashboard";
 import QRScanner from "./components/QRScanner";
 import EditModel from "./components/EditModel";
+import BookedRoom from "./screens/BookedRoom";
 
 export default function App() {
   return (
@@ -27,6 +28,8 @@ export default function App() {
       >
         <Stack.Screen name="Signup" component={SignUp} />
         <Stack.Screen name="Login" component={SignIn} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="RoomDetails" component={BookedRoom} />
         <Stack.Screen name="UserDashboard" component={UserDahboard} />
         <Stack.Screen name="Scanner" component={QRScanner} />
         <Stack.Screen name="WorkerAdmin" component={WorkerAdminDashboard} />

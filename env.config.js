@@ -1,1 +1,1 @@
-export const BASE_URL = "http://192.168.18.72:8000/";
+export const BASE_URL = "https://jade-aggressive-calf.cyclic.app/";
