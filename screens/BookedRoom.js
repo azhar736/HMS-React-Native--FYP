@@ -1,6 +1,9 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-const BookedRoom = () => {
+const BookedRoom = ({ navigation, route }) => {
+  useEffect(() => {
+    console.log("these are routes", route?.params);
+  }, []);
   return (
     <View style={styles.rootContainer}>
       <View style={styles.imageContainer}>

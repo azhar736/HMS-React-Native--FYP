@@ -4,7 +4,28 @@ import { FontAwesome } from "@expo/vector-icons";
 import Category from "../components/Category";
 import Card from "../components/Card";
 import Slider from "../components/Slider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../env.config";
 const Home = () => {
+  const [Rooms, setRooms] = useState([]);
+  useEffect(() => {
+    const getTokenFromLocalStorage = async () => {
+      const userData = await AsyncStorage.getItem("userData");
+      // console.log("The Data from Local storage=", userData);
+    };
+    getTokenFromLocalStorage();
+    getAllRooms();
+  }, []);
+
+  const getAllRooms = async () => {
+    const response = await axios.get(`${BASE_URL}allRooms`);
+    const data1 = response.data;
+    console.log("All Rooms:", data1.data);
+    setRooms(data1.data);
+  };
+
   return (
     <ScrollView style={styles.rootContainer}>
       <View style={styles.topBarContainer}>
@@ -45,9 +66,9 @@ const Home = () => {
         </View>
       </View>
       <View style={styles.cardContainer}>
-        <Card />
-        <Card />
-        <Card />
+        {Rooms?.map((Room) => (
+          <Card {...Room} />
+        ))}
       </View>
     </ScrollView>
   );
@@ -150,6 +171,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     flexDirection: "column",
     justifyContent: "space-between",
+    borderWidth: 2,
+    borderColor: "red",
   },
 });
 

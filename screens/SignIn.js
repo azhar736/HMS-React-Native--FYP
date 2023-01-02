@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { BASE_URL } from "../env.config";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,10 +19,21 @@ const SignIn = () => {
         email,
         password,
       });
-      const data1 = await response.data;
-      console.log("The Data from the server", data1.data);
-      if (data1) {
+      const result = await response.data;
+      // console.log("The Data from the server", result?.authToken);
+      const Token = result?.authToken;
+      const Name = result?.name;
+      const Userid = result?.id;
+      if (Token) {
         setLoginIsTrue(true);
+        await AsyncStorage.setItem(
+          "userData",
+          JSON.stringify({
+            "Auth-Token": Token,
+            "User-Name": Name,
+            "User-Id": Userid,
+          })
+        );
         navigation.navigate("Home");
       }
     } catch (error) {

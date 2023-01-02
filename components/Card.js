@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const Card = () => {
+const Card = ({ title, description, price, image, _id }) => {
   const navigation = useNavigation();
   return (
     <Pressable
-      onPress={() => navigation.navigate("RoomDetails")}
+      onPress={() => navigation.navigate("RoomDetails", { roomId: _id })}
       style={styles.rootContainer}
     >
       <View style={styles.imageContainer}>
@@ -16,15 +16,15 @@ const Card = () => {
       <View style={styles.textContainer}>
         <View style={styles.headingContainer}>
           <View>
-            <Text style={styles.headingLeft}>Heading Text</Text>
+            <Text style={styles.headingLeft}>{title}</Text>
           </View>
           <View>
-            <Text style={styles.headingRight}>$50</Text>
+            <Text style={styles.headingRight}>${price}</Text>
           </View>
         </View>
         <View style={styles.headingContainer}>
           <View>
-            <Text style={styles.textLeft}>City name</Text>
+            <Text style={styles.textLeft}>city</Text>
           </View>
           <View>
             <Text style={styles.textRight}>/Month</Text>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderWidth: 2,
-    borderColor: "#58fcb9",
+    borderColor: "blue",
   },
   imageContainer: {
     backgroundColor: "#50f2ad",
