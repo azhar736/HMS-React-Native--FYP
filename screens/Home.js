@@ -67,7 +67,7 @@ const Home = () => {
       </View>
       <View style={styles.cardContainer}>
         {Rooms?.map((Room) => (
-          <Card {...Room} />
+          <Card key={Room._id} {...Room} />
         ))}
       </View>
     </ScrollView>

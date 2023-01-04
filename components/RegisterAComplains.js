@@ -3,8 +3,9 @@ import PrimaryButton from "./PrimaryButton";
 import PrimaryTitle from "./PrimaryTitle";
 import { BASE_URL } from "../env.config";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const RegisterAComplains = () => {
   const [input, setInput] = useState("");
   const navigation = useNavigation();
@@ -12,6 +13,14 @@ const RegisterAComplains = () => {
     console.log(e);
     setInput(e);
   };
+  useEffect(() => {
+    const getTokenFromLocalStorage = async () => {
+      const userData = await AsyncStorage.getItem("userData");
+      console.log("The Data from Local storage=", userData);
+    };
+    getTokenFromLocalStorage();
+  }, []);
+
   const complain = async () => {
     try {
       const response = await axios.post(`${BASE_URL}makeComplain`, {

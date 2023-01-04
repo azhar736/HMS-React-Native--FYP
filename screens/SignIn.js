@@ -29,9 +29,9 @@ const SignIn = () => {
         await AsyncStorage.setItem(
           "userData",
           JSON.stringify({
-            "Auth-Token": Token,
-            "User-Name": Name,
-            "User-Id": Userid,
+            Auth_Token: Token,
+            User_Name: Name,
+            User_Id: Userid,
           })
         );
         navigation.navigate("Home");

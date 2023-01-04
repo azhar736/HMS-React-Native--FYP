@@ -1,9 +1,24 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-const BookedRoom = ({ navigation, route }) => {
+const BookedRoom = ({ route }) => {
+  //   useEffect(() => {
+  //     console.log("these are routes", route?.params);
+  //   }, []);
   useEffect(() => {
-    console.log("these are routes", route?.params);
+    const getTokenFromLocalStorage = async () => {
+      const userData = await AsyncStorage.getItem("userData");
+      const storageObj = JSON.parse(userData);
+      console.log("The Data from Local storage=", storageObj.Auth_Token);
+    };
+    getTokenFromLocalStorage();
   }, []);
+  const handleClick = () => {
+    console.log("Button Clicked");
+    console.log(route.params);
+  };
   return (
     <View style={styles.rootContainer}>
       <View style={styles.imageContainer}>
@@ -34,7 +49,7 @@ const BookedRoom = ({ navigation, route }) => {
       </View>
       <View>
         {/* Button */}
-        <PrimaryButton buttonText="Booked Now" />
+        <PrimaryButton buttonText="Booked Now" onTap={handleClick} />
       </View>
     </View>
   );

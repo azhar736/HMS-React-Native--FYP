@@ -26,6 +26,7 @@ export default function App() {
           headerShown: false,
         }}
       >
+        {/* <Stack.Screen name="UserDashboard" component={UserDahboard} /> */}
         <Stack.Screen name="Signup" component={SignUp} />
         <Stack.Screen name="Login" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />

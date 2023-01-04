@@ -5,7 +5,7 @@ const Card = ({ title, description, price, image, _id }) => {
   const navigation = useNavigation();
   return (
     <Pressable
-      onPress={() => navigation.navigate("RoomDetails", { roomId: _id })}
+      onPress={() => navigation.navigate("RoomDetails", { id: _id })}
       style={styles.rootContainer}
     >
       <View style={styles.imageContainer}>
