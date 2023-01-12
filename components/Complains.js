@@ -4,7 +4,12 @@ import React from "react";
 const Complains = () => {
   return (
     <View>
-      <Text>Complains comes here.....</Text>
+      <View>
+        <View>{/*No */}</View>
+        <View>{/*Student Name */}</View>
+        <View>{/*Complain */}</View>
+        <View>{/*Status */}</View>
+      </View>
     </View>
   );
 };

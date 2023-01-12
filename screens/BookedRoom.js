@@ -1,12 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-const BookedRoom = ({ route }) => {
-  //   useEffect(() => {
-  //     console.log("these are routes", route?.params);
-  //   }, []);
+const BookedRoom = ({ route, navigation }) => {
   useEffect(() => {
     const getTokenFromLocalStorage = async () => {
       const userData = await AsyncStorage.getItem("userData");
@@ -15,9 +11,38 @@ const BookedRoom = ({ route }) => {
     };
     getTokenFromLocalStorage();
   }, []);
+  // const sendRequest = async () => {
+  //   console.log(`${BASE_URL}loginUser`);
+  //   try {
+  //     const response = await axios.post(`${BASE_URL}loginUser`, {
+  //       email,
+  //       password,
+  //     });
+  //     const result = await response.data;
+  //     // console.log("The Data from the server", result?.authToken);
+  //     const Token = result?.authToken;
+  //     const Name = result?.name;
+  //     const Userid = result?.id;
+  //     if (Token) {
+  //       setLoginIsTrue(true);
+  //       await AsyncStorage.setItem(
+  //         "userData",
+  //         JSON.stringify({
+  //           Auth_Token: Token,
+  //           User_Name: Name,
+  //           User_Id: Userid,
+  //         })
+  //       );
+  //       navigation.navigate("Home");
+  //     }
+  //   } catch (error) {
+  //     console.log("error", error.message);
+  //   }
+  // };
   const handleClick = () => {
     console.log("Button Clicked");
     console.log(route.params);
+    navigation.navigate("UserDashboard");
   };
   return (
     <View style={styles.rootContainer}>

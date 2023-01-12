@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import EditModel from "./EditModel";
 import PrimaryTitle from "./PrimaryTitle";
@@ -110,6 +110,176 @@ const AllStudents = () => {
                 height: 15,
               }}
             />
+          </View>
+        </View>
+        <View style={styles.textContainer}>
+          {/* Form Body */}
+          <View style={styles.textCol1}>
+            <Text style={styles.text}>02</Text>
+          </View>
+          <View style={styles.textCol2}>
+            <Text style={styles.text}>test2@gmail.com</Text>
+          </View>
+          <View style={styles.textCol3}>
+            <Text style={styles.text}>Uzair</Text>
+          </View>
+          <View style={styles.textCol4}>
+            <Toggle />
+          </View>
+          <View style={styles.textCol5}>
+            <DropDownPicker
+              open={open}
+              placeholder={""}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              onSelectItem={(item) => {
+                // console.log(item);
+                setSelectedItems(item);
+              }}
+              disableBorderRadius={true}
+              style={{
+                borderWidth: 0,
+                padding: 0,
+              }}
+              textStyle={{
+                fontSize: 12,
+                fontWeight: "bold",
+              }}
+              containerStyle={
+                {
+                  // borderWidth: 2,
+                }
+              }
+              arrowIconStyle={{
+                width: 15,
+                height: 15,
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.textContainer}>
+          {/* Form Body */}
+          <View style={styles.textCol1}>
+            <Text style={styles.text}>03</Text>
+          </View>
+          <View style={styles.textCol2}>
+            <Text style={styles.text}>test3@gmail.com</Text>
+          </View>
+          <View style={styles.textCol3}>
+            <Text style={styles.text}>Kashif</Text>
+          </View>
+          <View style={styles.textCol4}>
+            <Toggle />
+          </View>
+          <View style={styles.textCol5}>
+            <DropDownPicker
+              open={open}
+              placeholder={""}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              onSelectItem={(item) => {
+                // console.log(item);
+                setSelectedItems(item);
+              }}
+              disableBorderRadius={true}
+              style={{
+                borderWidth: 0,
+                padding: 0,
+              }}
+              textStyle={{
+                fontSize: 12,
+                fontWeight: "bold",
+              }}
+              containerStyle={
+                {
+                  // borderWidth: 2,
+                }
+              }
+              arrowIconStyle={{
+                width: 15,
+                height: 15,
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.textContainer}>
+          {/* Form Body */}
+          <View style={styles.textCol1}>
+            <Text style={styles.text}>01</Text>
+          </View>
+          <View style={styles.textCol2}>
+            <Text style={styles.text}>test@gmail.com</Text>
+          </View>
+          <View style={styles.textCol3}>
+            <Text style={styles.text}>Azhar</Text>
+          </View>
+          <View style={styles.textCol4}>
+            <Toggle />
+          </View>
+          <View style={styles.textCol5}>
+            <DropDownPicker
+              open={open}
+              placeholder={""}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              onSelectItem={(item) => {
+                // console.log(item);
+                setSelectedItems(item);
+              }}
+              disableBorderRadius={true}
+              style={{
+                borderWidth: 0,
+                padding: 0,
+              }}
+              textStyle={{
+                fontSize: 12,
+                fontWeight: "bold",
+              }}
+              containerStyle={
+                {
+                  // borderWidth: 2,
+                }
+              }
+              arrowIconStyle={{
+                width: 15,
+                height: 15,
+              }}
+            />
+          </View>
+        </View>
+      </View>
+      <View>
+        <View>
+          <View style={styles.Container}>
+            <View style={styles.header}>
+              <Text style={styles.headingText}>Mess Timing</Text>
+            </View>
+            <View style={styles.content}>
+              <View style={styles.contentContainer}>
+                <Text style={styles.text}>BreakFast:</Text>
+                <Text style={styles.text}>8.00 AM</Text>
+                <Text style={styles.text}>Edit</Text>
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.text}>Lunch:</Text>
+                <Text style={styles.text}>12:00 AM</Text>
+                <Text style={styles.text}>Edit</Text>
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.text}>Dinner:</Text>
+                <Text style={styles.text}>7.00 PM</Text>
+                <Text style={styles.text}>Edit</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -224,5 +394,37 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 30,
     alignItems: "center",
+  },
+  Container: {
+    marginVertical: 8,
+    marginTop: 50,
+  },
+  header: {
+    borderColor: "yellow",
+    alignItems: "center",
+  },
+  content: {
+    borderColor: "blue",
+    alignItems: "center",
+  },
+  contentContainer: {
+    borderWidth: 2,
+    borderColor: "#58fcb9",
+    backgroundColor: "#defff1",
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 200,
+    padding: 4,
+    marginVertical: 4,
+  },
+  headingText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "600",
   },
 });

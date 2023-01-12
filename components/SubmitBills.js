@@ -8,11 +8,13 @@ import PrimaryTitle from "./PrimaryTitle";
 import axios from "axios";
 import { BASE_URL } from "../env.config";
 import ConvertToBase64 from "../helpers/ConverToBase64";
+import { useNavigation } from "@react-navigation/native";
 
 const SubmitBills = () => {
   const [loading, setLoading] = useState(false);
   const [uploadUrl, setUploadUrl] = useState("");
   const [images, setImages] = useState(null);
+  const navigation = useNavigation();
 
   const pickFromGallery = async () => {
     console.log("Button clicked");
@@ -53,17 +55,25 @@ const SubmitBills = () => {
     // console.log(url);
     // let uri = url.uri;
     // console.log(uri);
-    try {
-      // const file = e.target.files[0];
-      // const base64 = await ConvertToBase64(file);
-      const formdata = new FormData();
-      formdata.append("image", uploadUrl);
-      const response = await axios.post(`${BASE_URL}billPaid`, formdata);
-      const data1 = response.data;
-      console.log("The Uploaded image url", data1);
-    } catch (error) {
-      console.log("message:", error.message);
-    }
+    // try {
+    //   // const file = e.target.files[0];
+    //   // const base64 = await ConvertToBase64(file);
+    //   const formdata = new FormData();
+    //   formdata.append("image", uploadUrl);
+    //   const response = await axios.post(`${BASE_URL}billPaid`, formdata);
+    //   const data1 = response.data;
+    //   console.log("The Uploaded image url", data1);
+    // } catch (error) {
+    //   console.log("message:", error.message);
+    // }
+    Alert.alert("Thank You", "Your Bill has been submitted Successfully", [
+      { text: "OK", onPress: navigate },
+    ]);
+    // navigation.navigate("UserDashboard");
+  };
+  const navigate = () => {
+    console.log("Hello");
+    navigation.replace("UserDashboard");
   };
   return (
     <View style={styles.rootContainer}>
