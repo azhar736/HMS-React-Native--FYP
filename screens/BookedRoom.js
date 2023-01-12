@@ -1,44 +1,33 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { BASE_URL } from "../env.config";
+import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 const BookedRoom = ({ route, navigation }) => {
+  const [noOFSEATS, setNoOFSEATS] = useState("");
   useEffect(() => {
     const getTokenFromLocalStorage = async () => {
       const userData = await AsyncStorage.getItem("userData");
       const storageObj = JSON.parse(userData);
-      console.log("The Data from Local storage=", storageObj.Auth_Token);
+      console.log("The Data from Local storage=", storageObj);
     };
     getTokenFromLocalStorage();
   }, []);
-  // const sendRequest = async () => {
-  //   console.log(`${BASE_URL}loginUser`);
-  //   try {
-  //     const response = await axios.post(`${BASE_URL}loginUser`, {
-  //       email,
-  //       password,
-  //     });
-  //     const result = await response.data;
-  //     // console.log("The Data from the server", result?.authToken);
-  //     const Token = result?.authToken;
-  //     const Name = result?.name;
-  //     const Userid = result?.id;
-  //     if (Token) {
-  //       setLoginIsTrue(true);
-  //       await AsyncStorage.setItem(
-  //         "userData",
-  //         JSON.stringify({
-  //           Auth_Token: Token,
-  //           User_Name: Name,
-  //           User_Id: Userid,
-  //         })
-  //       );
-  //       navigation.navigate("Home");
-  //     }
-  //   } catch (error) {
-  //     console.log("error", error.message);
-  //   }
-  // };
+  const sendRequest = async () => {
+    console.log(`${BASE_URL}bookRoom`);
+    const RoomId = route.params;
+    try {
+      const response = await axios.post(`${BASE_URL}bookRoom`, {
+        bookedByUser: storageObj.User_Id,
+        id: RoomId,
+        noOfseats: noOFSEATS,
+      });
+      const result = await response.data;
+      console.log("The Data from the server", result);
+    } catch (error) {
+      console.log("error", error.message);
+    }
+  };
   const handleClick = () => {
     console.log("Button Clicked");
     console.log(route.params);
@@ -71,6 +60,14 @@ const BookedRoom = ({ route, navigation }) => {
             only five centuries,
           </Text>
         </View>
+      </View>
+      <View style={styles.formContainer}>
+        <TextInput
+          keyboardType="default"
+          placeholder="Enter no of Seats"
+          style={styles.input}
+          onChangeText={(e) => setNoOFSEATS(e)}
+        />
       </View>
       <View>
         {/* Button */}
@@ -118,5 +115,20 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 18,
     paddingHorizontal: 8,
+  },
+  formContainer: {
+    marginVertical: 20,
+  },
+  input: {
+    textAlign: "center",
+    backgroundColor: "#defff1",
+    borderWidth: 2,
+    width: 100,
+    height: 50,
+    borderColor: "#58fcb9",
+    paddingVertical: 6,
+    padding: 8,
+    marginVertical: 8,
+    borderRadius: 2,
   },
 });
