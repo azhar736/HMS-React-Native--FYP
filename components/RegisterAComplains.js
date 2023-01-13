@@ -23,32 +23,34 @@ const RegisterAComplains = () => {
 
   const complain = async () => {
     try {
+      console.log("Function Triggered")
       const response = await axios.post(`${BASE_URL}makeComplain`, {
-        userId: "63ab00cd6fdbb726de6ad8ad",
-        complainMessage: input,
+        "userId": "63c0c7fc2b5f7542c9db88d1",
+        "complainMessage":"Hello, world"
       });
+      console.log("The Response=",response.data);
       const data1 = await response.data;
       console.log(data1);
-      if (data1) {
-        Alert.alert(
-          "Registered",
-          "Your Complain has been registered successfully",
-          [
-            {
-              text: "OK",
-            },
-          ]
-        );
-      }
+      // if (data1) {
+      //   Alert.alert(
+      //     "Registered",
+      //     "Your Complain has been registered successfully",
+      //     [
+      //       {
+      //         text: "OK",
+      //       },
+      //     ]
+      //   );
+      // }
     } catch (error) {
       console.log("error: ", error.message);
     }
   };
 
-  const navigateToDashboard = () => {
-    console.log("Function Trigger");
-    navigation.navigate("UserDashboard");
-  };
+  // const navigateToDashboard = () => {
+  //   console.log("Function Trigger");
+  //   navigation.navigate("UserDashboard");
+  // };
   return (
     <View style={styles.rootContainer}>
       <PrimaryTitle title="Register Your Complain" />

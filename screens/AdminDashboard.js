@@ -3,6 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { StyleSheet, Text, View } from "react-native";
 import AllStudents from "../components/AllStudents";
 import Complains from "../components/Complains";
+import AllBill from "../components/AllBill";
 import EditModel from "../components/EditModel";
 const Drawer = createDrawerNavigator();
 const Admin = () => {
@@ -10,6 +11,9 @@ const Admin = () => {
 };
 const AllComplain = () => {
   return <Complains />;
+};
+const AllBills = () => {
+  return <AllBill />;
 };
 // const Edit = () => {
 //   return <EditModel />;
@@ -28,6 +32,7 @@ const AdminDashboard = () => {
     >
       <Drawer.Screen name="Admin Dashboard" component={Admin} />
       <Drawer.Screen name="All Complains" component={AllComplain} />
+      <Drawer.Screen name="All Bills" component={AllBills} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );

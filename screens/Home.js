@@ -8,17 +8,39 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../env.config";
-const Home = () => {
+const Home = ({navigation}) => {
   const [Rooms, setRooms] = useState([]);
+  const [getDataFromLocal, setGetDataFromLocal] = useState("");
+  const[roomId,setRoomId]=useState("");
   useEffect(() => {
     const getTokenFromLocalStorage = async () => {
       const userData = await AsyncStorage.getItem("userData");
-      // console.log("The Data from Local storage=", userData);
+      var storageObj =await JSON.parse(userData);
+      setGetDataFromLocal(JSON.parse(userData));
+      console.log("The Data from Local storage=", storageObj.User_Id);
     };
     getTokenFromLocalStorage();
-    getAllRooms();
+    const UserData=fetchUsers();
+    console.log("check user :",UserData);
+    if(roomId.roomId){
+      navigation.navigate("UserDashboard");
+    }
+    else{
+      getAllRooms();
+    }
   }, []);
-
+const fetchUsers=async()=>{
+  try {
+    console.log("USER ID HERE",getDataFromLocal.User_Id);
+    const fetchedUser = await axios.post(`${BASE_URL}singleUser`,{id:getDataFromLocal.User_Id});
+    const response=await fetchedUser.data;
+    // console.log("IT IS THE SINGLE USER",response.data);
+    return response.data;
+    setRoomId(response);
+  } catch (error) {
+    console.log("error ")
+  }
+}
   const getAllRooms = async () => {
     const response = await axios.get(`${BASE_URL}allRooms`);
     const data1 = response.data;

@@ -62,7 +62,7 @@ const UserDahboard = () => {
     console.log("generate Bill");
   };
   const Logout = () => {
-    navigation.navigate("Login");
+    navigation.replace("Login");
   };
   return (
     <Drawer.Navigator

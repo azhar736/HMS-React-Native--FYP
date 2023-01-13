@@ -3,26 +3,43 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../env.config";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import axios from "axios";
 const BookedRoom = ({ route, navigation }) => {
   const [noOFSEATS, setNoOFSEATS] = useState("");
+  const [getDataFromLocal, setGetDataFromLocal] = useState("");
   useEffect(() => {
     const getTokenFromLocalStorage = async () => {
       const userData = await AsyncStorage.getItem("userData");
-      const storageObj = JSON.parse(userData);
+      var storageObj = JSON.parse(userData);
+      setGetDataFromLocal(JSON.parse(userData));
       console.log("The Data from Local storage=", storageObj);
     };
     getTokenFromLocalStorage();
+    getSingleRoom();
   }, []);
+  const getSingleRoom = async () => {
+   
+    try {
+    const singleRoom = await axios.post(`${BASE_URL}singleRoom`, {
+      id: route.params.id,
+    });
+    const response = await singleRoom.data;
+    console.log("the remaining seats are :: ", response?.data.seatsRemaining);
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
   const sendRequest = async () => {
     console.log(`${BASE_URL}bookRoom`);
     const RoomId = route.params;
     try {
       const response = await axios.post(`${BASE_URL}bookRoom`, {
-        bookedByUser: storageObj.User_Id,
-        id: RoomId,
+        bookedByUser: getDataFromLocal.User_Id,
+        id: RoomId.id.toString(),
         noOfseats: noOFSEATS,
       });
       const result = await response.data;
+      return result;
       console.log("The Data from the server", result);
     } catch (error) {
       console.log("error", error.message);
@@ -31,7 +48,10 @@ const BookedRoom = ({ route, navigation }) => {
   const handleClick = () => {
     console.log("Button Clicked");
     console.log(route.params);
-    navigation.navigate("UserDashboard");
+   const result= sendRequest();
+    if(result){
+    navigation.navigate("UserDashboard")
+    }
   };
   return (
     <View style={styles.rootContainer}>
