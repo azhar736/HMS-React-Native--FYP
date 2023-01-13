@@ -12,21 +12,20 @@ const BookedRoom = ({ route, navigation }) => {
       const userData = await AsyncStorage.getItem("userData");
       var storageObj = JSON.parse(userData);
       setGetDataFromLocal(JSON.parse(userData));
-      console.log("The Data from Local storage=", storageObj);
+      // console.log("The Data from Local storage=", storageObj);
     };
     getTokenFromLocalStorage();
     getSingleRoom();
   }, []);
   const getSingleRoom = async () => {
-   
     try {
-    const singleRoom = await axios.post(`${BASE_URL}singleRoom`, {
-      id: route.params.id,
-    });
-    const response = await singleRoom.data;
-    console.log("the remaining seats are :: ", response?.data.seatsRemaining);
+      const singleRoom = await axios.post(`${BASE_URL}singleRoom`, {
+        id: route.params.id,
+      });
+      const response = await singleRoom.data;
+      // console.log("the remaining seats are :: ", response?.data.seatsRemaining);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   };
   const sendRequest = async () => {
@@ -40,7 +39,7 @@ const BookedRoom = ({ route, navigation }) => {
       });
       const result = await response.data;
       return result;
-      console.log("The Data from the server", result);
+      // console.log("The Data from the server", result);
     } catch (error) {
       console.log("error", error.message);
     }
@@ -48,9 +47,9 @@ const BookedRoom = ({ route, navigation }) => {
   const handleClick = () => {
     console.log("Button Clicked");
     console.log(route.params);
-   const result= sendRequest();
-    if(result){
-    navigation.navigate("UserDashboard")
+    const result = sendRequest();
+    if (result) {
+      navigation.navigate("UserDashboard");
     }
   };
   return (

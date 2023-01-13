@@ -34,7 +34,9 @@ const SignIn = () => {
             User_Id: Userid,
           })
         );
-        navigation.navigate("Home");
+        navigation.navigate("Home", {
+          id: Userid,
+        });
       }
     } catch (error) {
       console.log("error", error.message);

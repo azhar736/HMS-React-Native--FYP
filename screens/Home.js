@@ -5,94 +5,102 @@ import Category from "../components/Category";
 import Card from "../components/Card";
 import Slider from "../components/Slider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../env.config";
-const Home = ({navigation}) => {
+const Home = ({ navigation, route }) => {
+  const [showRoom, setShowRoom] = useState(false);
   const [Rooms, setRooms] = useState([]);
-  const [getDataFromLocal, setGetDataFromLocal] = useState("");
-  const[roomId,setRoomId]=useState("");
-  useEffect(() => {
-    const getTokenFromLocalStorage = async () => {
-      const userData = await AsyncStorage.getItem("userData");
-      var storageObj =await JSON.parse(userData);
-      setGetDataFromLocal(JSON.parse(userData));
-      console.log("The Data from Local storage=", storageObj.User_Id);
-    };
-    getTokenFromLocalStorage();
-    const UserData=fetchUsers();
-    console.log("check user :",UserData);
-    if(roomId.roomId){
-      navigation.navigate("UserDashboard");
+  const fetchUsers = async () => {
+    try {
+      const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
+        id: route.params.id,
+      });
+      const response = await fetchedUser.data;
+      if (response?.data?.roomId?.length > 0) {
+        navigation.replace("UserDashboard");
+      } else {
+        setShowRoom(true);
+      }
+      return response.data;
+    } catch (error) {
+      console.log("error ", error.message);
     }
-    else{
-      getAllRooms();
-    }
-  }, []);
-const fetchUsers=async()=>{
-  try {
-    console.log("USER ID HERE",getDataFromLocal.User_Id);
-    const fetchedUser = await axios.post(`${BASE_URL}singleUser`,{id:getDataFromLocal.User_Id});
-    const response=await fetchedUser.data;
-    // console.log("IT IS THE SINGLE USER",response.data);
-    return response.data;
-    setRoomId(response);
-  } catch (error) {
-    console.log("error ")
-  }
-}
+  };
   const getAllRooms = async () => {
     const response = await axios.get(`${BASE_URL}allRooms`);
     const data1 = response.data;
-    console.log("All Rooms:", data1.data);
     setRooms(data1.data);
   };
-
+  useEffect(() => {
+    fetchUsers();
+    getAllRooms();
+  }, [route]);
+  useEffect(() => {
+    fetchUsers();
+    getAllRooms();
+  }, []);
   return (
-    <ScrollView style={styles.rootContainer}>
-      <View style={styles.topBarContainer}>
-        <View>
-          <Text>Logo</Text>
-        </View>
-        <View>
-          <Text>
-            <AntDesign name="bells" size={24} color="black" />
-          </Text>
-        </View>
-      </View>
-      <View>
-        <Text style={styles.title}>Hello, Azhar</Text>
-      </View>
-      <View style={styles.formContainer}>
-        <FontAwesome name="search" size={24} color="lightgray" />
-        <TextInput
-          keyboardType="default"
-          placeholder="Search"
-          style={styles.input}
-        />
-      </View>
-      <View style={styles.categoryContainer}>
-        <Category Title="Recomended" style={styles.category} isActive={true} />
-        <Category Title="Popular" style={styles.category} isActive={false} />
-        <Category Title="Trending" style={styles.category} isActive={false} />
-      </View>
-      <View style={styles.container}>
-        <Slider />
-      </View>
-      <View style={styles.textContainer}>
-        <View>
-          <Text style={styles.leftText}>Recently Booked</Text>
-        </View>
-        <View>
-          <Text style={styles.textRight}>See All</Text>
-        </View>
-      </View>
-      <View style={styles.cardContainer}>
-        {Rooms?.map((Room) => (
-          <Card key={Room._id} {...Room} />
-        ))}
-      </View>
-    </ScrollView>
+    <>
+      {showRoom && (
+        <ScrollView style={styles.rootContainer}>
+          <View style={styles.topBarContainer}>
+            <View>
+              <Text>Logo</Text>
+            </View>
+            <View>
+              <Text>
+                <AntDesign name="bells" size={24} color="black" />
+              </Text>
+            </View>
+          </View>
+          <View>
+            <Text style={styles.title}>Hello, Azhar</Text>
+          </View>
+          <View style={styles.formContainer}>
+            <FontAwesome name="search" size={24} color="lightgray" />
+            <TextInput
+              keyboardType="default"
+              placeholder="Search"
+              style={styles.input}
+            />
+          </View>
+          <View style={styles.categoryContainer}>
+            <Category
+              Title="Recomended"
+              style={styles.category}
+              isActive={true}
+            />
+            <Category
+              Title="Popular"
+              style={styles.category}
+              isActive={false}
+            />
+            <Category
+              Title="Trending"
+              style={styles.category}
+              isActive={false}
+            />
+          </View>
+          <View style={styles.container}>
+            <Slider />
+          </View>
+          <View style={styles.textContainer}>
+            <View>
+              <Text style={styles.leftText}>Recently Booked</Text>
+            </View>
+            <View>
+              <Text style={styles.textRight}>See All</Text>
+            </View>
+          </View>
+          <View style={styles.cardContainer}>
+            {Rooms?.map((Room) => (
+              <Card key={Room._id} {...Room} />
+            ))}
+          </View>
+        </ScrollView>
+      )}
+    </>
   );
 };
 
