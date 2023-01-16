@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Alert, Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
-const QRScanner = () => {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BASE_URL } from "../env.config";
+import axios from "axios";
+const QRScanner = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("Not Scanned yet");
+  const [userId, setUserId] = useState("");
   //   const navigate = useNavigation();
   //Request Camera Permission
   useEffect(() => {
@@ -13,15 +17,49 @@ const QRScanner = () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
     };
-
     getBarCodeScannerPermissions();
   }, []);
+  useEffect(() => {
+    getTokenFromLocalStorage();
+  }, []);
+
+  const getTokenFromLocalStorage = async () => {
+    const userData = await AsyncStorage.getItem("userData");
+    // console.log("The Data from Local storage=", userData);
+    const temp = JSON.parse(userData);
+    console.log(temp.User_Id);
+    setUserId(temp.User_Id);
+  };
   //What happens when the user scan the QR Code
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     setText(data);
     console.log("The Data is:", data);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    try {
+      console.log("Function Triggered");
+      const response = await axios.post(`${BASE_URL}markAttendence`, {
+        userId: userId,
+        noOfUnits: data,
+      });
+      // console.log("The Response=", response.data);
+      const data1 = await response.data;
+      console.log("The Data from API", data1.success);
+      if (data1.success) {
+        Alert.alert(
+          "Thank You",
+          "Your attendence has been marked successfully",
+          [
+            {
+              text: "OK",
+              onPress: () => navigation.replace("UserDashboard"),
+            },
+          ]
+        );
+      }
+    } catch (error) {
+      console.log("error: ", error.message);
+    }
+    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     // navigate.goBack();
   };
 

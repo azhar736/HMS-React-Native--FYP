@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const RegisterAComplains = () => {
   const [input, setInput] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState("");
   const navigation = useNavigation();
   const inputHandler = (e) => {
     console.log(e);
@@ -16,19 +17,22 @@ const RegisterAComplains = () => {
   useEffect(() => {
     const getTokenFromLocalStorage = async () => {
       const userData = await AsyncStorage.getItem("userData");
-      console.log("The Data from Local storage=", userData);
+      // console.log("The Data from Local storage=", userData);
+      const temp = JSON.parse(userData);
+      console.log(temp.User_Id);
     };
     getTokenFromLocalStorage();
   }, []);
 
   const complain = async () => {
     try {
-      console.log("Function Triggered")
+      console.log("Function Triggered");
+      console.log(input);
       const response = await axios.post(`${BASE_URL}makeComplain`, {
-        "userId": "63c0c7fc2b5f7542c9db88d1",
-        "complainMessage":"Hello, world"
+        userId: "63c0c7fc2b5f7542c9db88d1",
+        complainMessage: "Hello, world",
       });
-      console.log("The Response=",response.data);
+      console.log("The Response=", response.data);
       const data1 = await response.data;
       console.log(data1);
       // if (data1) {
