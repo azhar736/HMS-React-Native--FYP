@@ -4,7 +4,15 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import PrimaryButton from "./PrimaryButton";
-const MealsFormInput = ({ id, title, units, setSum, sum, rerender }) => {
+const MealsFormInput = ({
+  title,
+  units,
+  setSum,
+  sum,
+  rerender,
+  id,
+  mealname,
+}) => {
   const navigation = useNavigation();
   const [input, setInput] = useState(0);
   const [showConfirm, setShowConfirm] = useState(true);
@@ -13,6 +21,7 @@ const MealsFormInput = ({ id, title, units, setSum, sum, rerender }) => {
     setSum(Number(input) + sum);
     setShowConfirm(false);
   };
+  // console.log("The Data", itemData);
   useEffect(() => {
     setShowConfirm(true);
     setInput("");
@@ -29,11 +38,11 @@ const MealsFormInput = ({ id, title, units, setSum, sum, rerender }) => {
         {/*Form */}
         <View style={styles.container1}>
           {/*No */}
-          <Text>1</Text>
+          <Text>{id}</Text>
         </View>
         <View style={styles.container2}>
           {/*Meals List*/}
-          <Text>Biryani</Text>
+          <Text>{mealname}</Text>
         </View>
         {showConfirm ? (
           <>

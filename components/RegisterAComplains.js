@@ -20,6 +20,7 @@ const RegisterAComplains = () => {
       // console.log("The Data from Local storage=", userData);
       const temp = JSON.parse(userData);
       console.log(temp.User_Id);
+      setLoggedInUser(temp.User_Id);
     };
     getTokenFromLocalStorage();
   }, []);
@@ -28,9 +29,10 @@ const RegisterAComplains = () => {
     try {
       console.log("Function Triggered");
       console.log(input);
+      console.log("The User id is:", loggedInUser);
       const response = await axios.post(`${BASE_URL}makeComplain`, {
-        userId: "63c0c7fc2b5f7542c9db88d1",
-        complainMessage: "Hello, world",
+        userId: loggedInUser,
+        complainMessage: input,
       });
       console.log("The Response=", response.data);
       const data1 = await response.data;

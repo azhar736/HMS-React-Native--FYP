@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import useForceUpdate from "use-force-update";
 import MealsFormInput from "./MealsFormInput";
 import Model from "./Model";
 import PrimaryButton from "./PrimaryButton";
+import axios from "axios";
+import { BASE_URL } from "../env.config";
 const MealsForm = () => {
   const [model, setModel] = useState(false);
   const [rerender, setRerender] = useState(0);
   const [sum, setSum] = useState(0);
   const forceUpdate = useForceUpdate();
+  const [meals, setMeals] = useState([]);
+  useEffect(() => {
+    const fetchList = async () => {
+      const response = await axios.get(`${BASE_URL}allMeals`);
+      const data1 = response.data;
+      // console.log("The meals list", data1.data);
+      setMeals(data1.data);
+    };
+    fetchList();
+  }, []);
   const DATA = [
     {
       id: "1",
@@ -22,10 +34,12 @@ const MealsForm = () => {
     },
   ];
   const renderItem = (itemData) => {
-    // console.log(itemData.item);
+    console.log(itemData.index);
+    console.log(itemData.item.mealName);
     return (
       <MealsFormInput
-        {...itemData.item}
+        id={itemData.index}
+        mealname={itemData.item.mealName}
         setSum={setSum}
         sum={sum}
         rerender={rerender}
@@ -64,10 +78,11 @@ const MealsForm = () => {
         </View>
       </View>
       <FlatList
-        data={DATA}
+        data={meals}
+        key={meals.map((meal) => meal._id)}
         renderItem={renderItem}
         keyboardShouldPersistTaps={"handled"}
-        keyExtractor={(item) => item.id}
+        // keyExtractor={(meal) => item.id}
       />
       {/*Button*/}
       <View style={styles.buttonContainer}>
