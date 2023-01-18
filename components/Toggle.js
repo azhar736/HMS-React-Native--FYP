@@ -1,18 +1,47 @@
-import React, { useState } from "react";
-import { View, Switch, StyleSheet } from "react-native";
-
-const Toggle = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+import React, { useEffect, useState } from "react";
+import { View, Switch, StyleSheet, Text } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { BASE_URL } from "../env.config";
+import axios from "axios";
+const Toggle = ({ userId, status }) => {
+  const [loading, setLoading] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(status);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  useEffect(() => {
+    UpdateUserStatus();
+  }, [isEnabled]);
+
+  const UpdateUserStatus = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.patch(`${BASE_URL}setStatus`, {
+        id: userId,
+        status: isEnabled,
+      });
+      const data1 = await response.data;
+      console.log("The Data from API:", data1.data);
+      if (data1) {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("error: ", error.message);
+    }
+  };
   return (
     <View style={styles.container}>
-      <Switch
-        trackColor={{ false: "#58fcb9", true: "#fa0536" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+      {loading ? (
+        <>
+          <Feather name="loader" size={24} color="black" />
+        </>
+      ) : (
+        <Switch
+          trackColor={{ false: "#fa0536", true: "#58fcb9" }}
+          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      )}
     </View>
   );
 };

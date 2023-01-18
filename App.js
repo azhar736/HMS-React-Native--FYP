@@ -17,8 +17,17 @@ import AdminDashboard from "./screens/AdminDashboard";
 import QRScanner from "./components/QRScanner";
 import EditModel from "./components/EditModel";
 import BookedRoom from "./screens/BookedRoom";
+import SubmitBills from "./components/SubmitBills";
 
 export default function App() {
+  const SubmitBill = () => {
+    return (
+      <View>
+        <SubmitBills />
+      </View>
+    );
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -36,6 +45,7 @@ export default function App() {
         <Stack.Screen name="WorkerAdmin" component={WorkerAdminDashboard} />
         <Stack.Screen name="Admin" component={AdminDashboard} />
         <Stack.Screen name="EditUser" component={EditModel} />
+        <Stack.Screen name="SubmitBill" component={SubmitBill} />
         {/* <SignUp /> */}
         {/* <SignIn /> */}
         {/* <Profile /> */}

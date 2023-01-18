@@ -1,7 +1,28 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PrimaryTitle from "./PrimaryTitle";
 import Toggle from "./Toggle";
+import { BASE_URL } from "../env.config";
+import axios from "axios";
+import { useEffect, useState } from "react";
 const SudentList = () => {
+  const [studentsList, setStudentsList] = useState([]);
+
+  useEffect(() => {
+    getAllStudent();
+  }, []);
+
+  const getAllStudent = async () => {
+    try {
+      console.log("Function Triggered");
+      const response = await axios.get(`${BASE_URL}allUsers`);
+      const data1 = await response.data;
+      console.log("The Data from API:", data1.data);
+      setStudentsList(data1.data);
+    } catch (error) {
+      console.log("error: ", error.message);
+    }
+  };
+  console.log("The DATA IN STATE:", studentsList);
   return (
     <View>
       <PrimaryTitle title="All Students" />
@@ -21,102 +42,32 @@ const SudentList = () => {
             <Text style={styles.heading}>Status</Text>
           </View>
         </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>01</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>01</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>02</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test2@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>03</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test3@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>04</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test4@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>05</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test5@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-        </View>
-        <View style={styles.totalContainer}>
+        <ScrollView style={styles.Container}>
+          {studentsList.map((student, index) => (
+            // console.log("The Signle Student Detail=", student)
+            <View style={styles.textContainer} key={index}>
+              {/* Form Body */}
+              <View style={styles.textCol1}>
+                <Text style={styles.text}>{index + 1}</Text>
+              </View>
+              <View style={styles.textCol2}>
+                <Text style={styles.text}>{student.email}</Text>
+              </View>
+              <View style={styles.textCol3}>
+                <Text style={styles.text}>{student.name}</Text>
+              </View>
+              <View style={styles.textCol4}>
+                <Toggle userId={student._id} status={student.isActive} />
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+        {/* <View style={styles.totalContainer}>
           <View style={styles.leftContainer}></View>
           <View style={styles.rightContainer}>
             <Text style={styles.text}>Total:</Text>
           </View>
-        </View>
+        </View> */}
       </View>
     </View>
   );
@@ -125,6 +76,10 @@ const SudentList = () => {
 export default SudentList;
 
 const styles = StyleSheet.create({
+  Container: {
+    height: 500,
+    marginBottom: 50,
+  },
   rootContainer: {
     marginHorizontal: 16,
   },
