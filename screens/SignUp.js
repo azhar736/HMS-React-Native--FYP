@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { BASE_URL } from "../env.config";
 import axios from "axios";
 
-const isValidObj = (obj) => {
+export const isValidObj = (obj) => {
   //Fist Conver the Objet into array and then check all field are filled
   // return Object.values(obj).every((value) => value?.trim());
   const Data = Object.values(obj);
@@ -25,21 +25,22 @@ const isValidObj = (obj) => {
   return checkArary;
 };
 
-const updateError = (error, stateUpdater) => {
+export const updateError = (error, stateUpdater) => {
   stateUpdater(error);
+  console.log(error);
   setTimeout(() => {
     stateUpdater("");
   }, 3000);
 };
 
-const isValidEmail = (value) => {
+export const isValidEmail = (value) => {
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
   return regx.test(value);
 };
 
 const SignUp = () => {
   const [userInfo, setUserInfo] = useState({
-    fullName: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -48,9 +49,9 @@ const SignUp = () => {
   });
 
   const [error, setError] = useState("");
-
+  const [errorValue, setErrorValue] = useState("");
   const {
-    fullName,
+    name,
     email,
     password,
     confirmPassword,
@@ -119,10 +120,11 @@ const SignUp = () => {
         accountType,
       });
       const data1 = await response.data;
-      console.log(data1);
+      console.log("The Data from the Server", data1);
       navigation.navigate("Login");
     } catch (error) {
       console.log("error", error.message);
+      setErrorValue(error.message);
     }
   };
 
@@ -135,24 +137,24 @@ const SignUp = () => {
     if (!isValidObj(userInfo))
       return updateError("Required all fields!", setError);
     //If Valid name with 3 or more characters
-    if (!fullName.trim() || fullName.length < 3)
+    if (!name.trim() || name.length < 3)
       return updateError("Invalid name!", setError);
     //Only Valid email is allowed
     if (!isValidEmail(email)) return updateError("Invalid email!", setError);
     //Password must have 6 or more characters
     if (!password.trim() || password.length < 6)
       return updateError(
-        "Invalid password, password must be at leats 6 characters!",
+        "Invalid password, password must be at least 6 characters!",
         setError
       );
     if (!upperCase.test(password))
       return updateError(
-        "Invalid password, password must be at leats one UPPER Case Character!",
+        "Invalid password, password must be at least one UPPER Case Character!",
         setError
       );
     if (!lowerCase.test(password))
       return updateError(
-        "Invalid password, password must be at leats one Lower Case Character!",
+        "Invalid password, password must be at least one Lower Case Character!",
         setError
       );
     if (!special.test(password))
@@ -162,7 +164,7 @@ const SignUp = () => {
       );
     if (!num.test(password))
       return updateError(
-        "Invalid password, password must contain at least special Character!",
+        "Invalid password, password must contain at least one number!",
         setError
       );
     //Password  and confirm password must be the same
@@ -177,10 +179,11 @@ const SignUp = () => {
     // console.log("name", name);
     // console.log("password", password);
     // console.log("confirmPassword", confirmPassword);
-    // sendRequest();
+    // console.log("The ERROR=", errorValue);
     if (isValidForm()) {
       //SubmitForm
       console.log(userInfo);
+      sendRequest();
     }
   };
   return (
@@ -188,7 +191,7 @@ const SignUp = () => {
       <View style={styles.title}>
         <PrimaryTitle title="Create Your Account" />
       </View>
-      {error ? (
+      {error === "Required all fields!" ? (
         <Text style={{ color: "red", fontSize: 14, textAlign: "center" }}>
           {error}
         </Text>
@@ -198,9 +201,20 @@ const SignUp = () => {
           keyboardType="default"
           placeholder="Enter Your FULL Name"
           style={styles.input}
-          value={fullName}
-          onChangeText={(value) => handleOnChangeText(value, "fullName")}
+          value={name}
+          onChangeText={(value) => handleOnChangeText(value, "name")}
         />
+        {error === "Invalid name!" ? (
+          <Text
+            style={{
+              color: "red",
+              fontSize: 12,
+              textAlign: "left",
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
         <TextInput
           keyboardType="email-address"
           autoCapitalize="none"
@@ -209,6 +223,17 @@ const SignUp = () => {
           value={email}
           onChangeText={(value) => handleOnChangeText(value, "email")}
         />
+        {error === "Invalid email!" ? (
+          <Text
+            style={{
+              color: "red",
+              fontSize: 12,
+              textAlign: "left",
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
         <TextInput
           keyboardType="default"
           placeholder="Password"
@@ -218,6 +243,22 @@ const SignUp = () => {
           value={password}
           onChangeText={(value) => handleOnChangeText(value, "password")}
         />
+        {error.match("6 characters") ||
+        error.match(" UPPER Case Character") ||
+        error.match("Lower Case Character") ||
+        error.match("special Character") ||
+        error.match("least one number") ||
+        error.match("Password don't match") ? (
+          <Text
+            style={{
+              color: "red",
+              fontSize: 12,
+              textAlign: "left",
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
         <TextInput
           keyboardType="default"
           placeholder="Confirm Password"
@@ -228,6 +269,18 @@ const SignUp = () => {
           onChangeText={(value) => handleOnChangeText(value, "confirmPassword")}
         />
       </View>
+      {errorValue && (
+        <Text
+          style={{
+            color: "red",
+            fontSize: 12,
+            textAlign: "center",
+            marginBottom: 8,
+          }}
+        >
+          {errorValue}
+        </Text>
+      )}
       <View style={styles.buttonContainer}>
         <PrimaryButton onTap={Submit} buttonText="Sign UP" />
       </View>
