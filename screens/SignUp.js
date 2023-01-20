@@ -7,13 +7,68 @@ import { useNavigation } from "@react-navigation/native";
 import { BASE_URL } from "../env.config";
 import axios from "axios";
 
+const isValidObj = (obj) => {
+  //Fist Conver the Objet into array and then check all field are filled
+  // return Object.values(obj).every((value) => value?.trim());
+  const Data = Object.values(obj);
+  let checkArary = Data.every((value) => {
+    if (value) {
+      return true;
+      // console.log("TRUEEE");
+    } else {
+      return false;
+      // console.log("FALSEEE");
+    }
+  });
+  // console.log("THE DATA:", Data);
+  // console.log("THE New Data:", checkArary);
+  return checkArary;
+};
+
+const updateError = (error, stateUpdater) => {
+  stateUpdater(error);
+  setTimeout(() => {
+    stateUpdater("");
+  }, 3000);
+};
+
+const isValidEmail = (value) => {
+  const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return regx.test(value);
+};
+
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [isActive, setIsActive] = useState(true);
-  const [accountType, setaccountType] = useState("STUDENT");
-  const [email, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    isActive: true,
+    accountType: "STUDENT",
+  });
+
+  const [error, setError] = useState("");
+
+  const {
+    fullName,
+    email,
+    password,
+    confirmPassword,
+    isActive,
+    accountType,
+  } = userInfo;
+
+  const handleOnChangeText = (value, fieldName) => {
+    setUserInfo({ ...userInfo, [fieldName]: value });
+  };
+
+  // console.log(userInfo);
+  // const [name, setName] = useState("");
+  // const [isActive, setIsActive] = useState(true);
+  // const [accountType, setaccountType] = useState("STUDENT");
+  // const [email, setMail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const navigation = useNavigation();
 
   // const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -22,18 +77,18 @@ const SignUp = () => {
   //   validpassword: false,
   // });
 
-  const NameHandler = (e) => {
-    setName(e);
-  };
-  const emailHandler = (e) => {
-    setMail(e);
-  };
-  const passwordHandler = (e) => {
-    setPassword(e);
-  };
-  const confirmPasswordHandler = (e) => {
-    setConfirmPassword(e);
-  };
+  // const NameHandler = (e) => {
+  //   setName(e);
+  // };
+  // const emailHandler = (e) => {
+  //   setMail(e);
+  // };
+  // const passwordHandler = (e) => {
+  //   setPassword(e);
+  // };
+  // const confirmPasswordHandler = (e) => {
+  //   setConfirmPassword(e);
+  // };
   // const InputValidation = () => {
   //   const nameIsValid = name.length > 3;
   //   const emailIsValid = email.includes("@");
@@ -70,46 +125,107 @@ const SignUp = () => {
       console.log("error", error.message);
     }
   };
+
+  const isValidForm = () => {
+    var upperCase = new RegExp("[A-Z]");
+    var lowerCase = new RegExp("[a-z]");
+    var special = new RegExp("[!@#$%^&*]");
+    var num = new RegExp("[0-9]");
+    //We Will accept Only if all fields has values
+    if (!isValidObj(userInfo))
+      return updateError("Required all fields!", setError);
+    //If Valid name with 3 or more characters
+    if (!fullName.trim() || fullName.length < 3)
+      return updateError("Invalid name!", setError);
+    //Only Valid email is allowed
+    if (!isValidEmail(email)) return updateError("Invalid email!", setError);
+    //Password must have 6 or more characters
+    if (!password.trim() || password.length < 6)
+      return updateError(
+        "Invalid password, password must be at leats 6 characters!",
+        setError
+      );
+    if (!upperCase.test(password))
+      return updateError(
+        "Invalid password, password must be at leats one UPPER Case Character!",
+        setError
+      );
+    if (!lowerCase.test(password))
+      return updateError(
+        "Invalid password, password must be at leats one Lower Case Character!",
+        setError
+      );
+    if (!special.test(password))
+      return updateError(
+        "Invalid password, password must contains a special Character!",
+        setError
+      );
+    if (!num.test(password))
+      return updateError(
+        "Invalid password, password must contain at least special Character!",
+        setError
+      );
+    //Password  and confirm password must be the same
+    if (password !== confirmPassword)
+      return updateError("Password don't match!", setError);
+
+    return true;
+  };
+
   const Submit = () => {
     // console.log("email", email);
     // console.log("name", name);
     // console.log("password", password);
     // console.log("confirmPassword", confirmPassword);
-    sendRequest();
+    // sendRequest();
+    if (isValidForm()) {
+      //SubmitForm
+      console.log(userInfo);
+    }
   };
   return (
     <View style={styles.rootContainer}>
       <View style={styles.title}>
         <PrimaryTitle title="Create Your Account" />
       </View>
+      {error ? (
+        <Text style={{ color: "red", fontSize: 14, textAlign: "center" }}>
+          {error}
+        </Text>
+      ) : null}
       <View style={styles.formContainer}>
         <TextInput
           keyboardType="default"
           placeholder="Enter Your FULL Name"
           style={styles.input}
-          value={name}
-          onChangeText={NameHandler}
+          value={fullName}
+          onChangeText={(value) => handleOnChangeText(value, "fullName")}
         />
         <TextInput
           keyboardType="email-address"
+          autoCapitalize="none"
           placeholder="Enter Your email - address"
           style={styles.input}
           value={email}
-          onChangeText={emailHandler}
+          onChangeText={(value) => handleOnChangeText(value, "email")}
         />
         <TextInput
-          keyboardType="visible-password"
+          keyboardType="default"
           placeholder="Password"
+          autoCapitalize="none"
+          secureTextEntry={true}
           style={styles.input}
           value={password}
-          onChangeText={passwordHandler}
+          onChangeText={(value) => handleOnChangeText(value, "password")}
         />
         <TextInput
-          keyboardType="visible-password"
+          keyboardType="default"
           placeholder="Confirm Password"
+          autoCapitalize="none"
+          secureTextEntry={true}
           style={styles.input}
           value={confirmPassword}
-          onChangeText={confirmPasswordHandler}
+          onChangeText={(value) => handleOnChangeText(value, "confirmPassword")}
         />
       </View>
       <View style={styles.buttonContainer}>
