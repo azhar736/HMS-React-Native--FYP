@@ -7,39 +7,39 @@ import Slider from "../components/Slider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 const Home = ({ navigation, route }) => {
-  const [showRoom, setShowRoom] = useState(false);
+  const [showRoom, setShowRoom] = useState(true);
   const [Rooms, setRooms] = useState([]);
-  const fetchUsers = async () => {
-    try {
-      const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
-        id: route.params.id,
-      });
-      const response = await fetchedUser.data;
-      if (response?.data?.roomId?.length > 0) {
-        navigation.replace("UserDashboard");
-      } else {
-        setShowRoom(true);
-      }
-      return response.data;
-    } catch (error) {
-      console.log("error ", error.message);
-    }
-  };
-  const getAllRooms = async () => {
-    const response = await axios.get(`${BASE_URL}allRooms`);
-    const data1 = response.data;
-    setRooms(data1.data);
-  };
-  useEffect(() => {
-    fetchUsers();
-    getAllRooms();
-  }, [route]);
-  useEffect(() => {
-    fetchUsers();
-    getAllRooms();
-  }, []);
+  // const fetchUsers = async () => {
+  //   try {
+  //     const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
+  //       id: route.params.id,
+  //     });
+  //     const response = await fetchedUser.data;
+  //     if (response?.data?.roomId?.length > 0) {
+  //       navigation.replace("UserDashboard");
+  //     } else {
+  //       setShowRoom(true);
+  //     }
+  //     return response.data;
+  //   } catch (error) {
+  //     console.log("error ", error.message);
+  //   }
+  // };
+  // const getAllRooms = async () => {
+  //   const response = await axios.get(`${BASE_URL}allRooms`);
+  //   const data1 = response.data;
+  //   setRooms(data1.data);
+  // };
+  // useEffect(() => {
+  //   fetchUsers();
+  //   getAllRooms();
+  // }, [route]);
+  // useEffect(() => {
+  //   fetchUsers();
+  //   getAllRooms();
+  // }, []);
   return (
     <>
       {showRoom && (

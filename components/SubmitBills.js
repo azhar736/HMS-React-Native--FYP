@@ -6,7 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import PrimaryButton from "./PrimaryButton";
 import PrimaryTitle from "./PrimaryTitle";
 import axios from "axios";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import ConvertToBase64 from "../helpers/ConverToBase64";
 import { useNavigation } from "@react-navigation/native";
 

@@ -17,7 +17,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import { Feather } from "@expo/vector-icons";
 function RegisterAComplain() {
   return (

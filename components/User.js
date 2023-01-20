@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import MealList from "./MealList";
 import PrimaryTitle from "./PrimaryTitle";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const User = () => {

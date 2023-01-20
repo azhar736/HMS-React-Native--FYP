@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryTitle from "./PrimaryTitle";
 import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import axios from "axios";
 const AddNewRoom = () => {
   const [title, setTitle] = useState("");

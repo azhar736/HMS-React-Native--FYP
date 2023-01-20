@@ -3,7 +3,7 @@ import { Alert, Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import axios from "axios";
 const QRScanner = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);

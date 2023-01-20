@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import {
   FlatList,
   ScrollView,

@@ -5,7 +5,7 @@ import MealsFormInput from "./MealsFormInput";
 import Model from "./Model";
 import PrimaryButton from "./PrimaryButton";
 import axios from "axios";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 const MealsForm = () => {
   const [model, setModel] = useState(false);
   const [rerender, setRerender] = useState(0);

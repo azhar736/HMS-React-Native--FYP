@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { BASE_URL } from "@env";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 //Function for Validating the input Obj
 export const isValidObj = (obj) => {
@@ -44,8 +45,10 @@ const SignUp = () => {
     isActive: true,
     accountType: "STUDENT",
   });
+  const navigation = useNavigation();
   const [error, setError] = useState("");
   const [errorValue, setErrorValue] = useState("");
+  const [loader, setLoader] = useState(false);
   const {
     name,
     email,
@@ -59,53 +62,9 @@ const SignUp = () => {
     setUserInfo({ ...userInfo, [fieldName]: value });
   };
 
-  // console.log(userInfo);
-  // const [name, setName] = useState("");
-  // const [isActive, setIsActive] = useState(true);
-  // const [accountType, setaccountType] = useState("STUDENT");
-  // const [email, setMail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  const navigation = useNavigation();
-
-  // const [credentialsInvalid, setCredentialsInvalid] = useState({
-  //   validname: false,
-  //   validemail: false,
-  //   validpassword: false,
-  // });
-
-  // const NameHandler = (e) => {
-  //   setName(e);
-  // };
-  // const emailHandler = (e) => {
-  //   setMail(e);
-  // };
-  // const passwordHandler = (e) => {
-  //   setPassword(e);
-  // };
-  // const confirmPasswordHandler = (e) => {
-  //   setConfirmPassword(e);
-  // };
-  // const InputValidation = () => {
-  //   const nameIsValid = name.length > 3;
-  //   const emailIsValid = email.includes("@");
-  //   const passwordIsValid = password.length > 6;
-  //   if (!emailIsValid) {
-  //     Alert.alert("Invalid input", "Please enter a Valid Name");
-  //   } else if (!emailIsValid) {
-  //     Alert.alert("Invalid input", "Please enter a Valid Email");
-  //   } else if (!passwordIsValid) {
-  //     Alert.alert("Invalid input", "Please enter a Valid Password");
-  //   }
-
-  //   setCredentialsInvalid({
-  //     validname: !nameIsValid,
-  //     validemail: !emailIsValid,
-  //     validpassword: !passwordIsValid,
-  //   });
-  // };
   const sendRequest = async () => {
     console.log(`${BASE_URL}addUser`);
+    setLoader(true);
     try {
       const response = await axios.post(`${BASE_URL}addUser`, {
         name,
@@ -116,8 +75,13 @@ const SignUp = () => {
         accountType,
       });
       const data1 = await response.data;
-      console.log("The Data from the Server", data1);
-      navigation.navigate("Login");
+      // console.log("The Data from the Server", data1.success);
+      if (data1.success) {
+        navigation.navigate("Login");
+      } else {
+        setErrorValue(data1.message);
+      }
+      setLoader(false);
     } catch (error) {
       console.log("error", error.message);
       setErrorValue(error.message);
@@ -274,6 +238,7 @@ const SignUp = () => {
           {errorValue}
         </Text>
       )}
+      {loader && <Loader />}
       <View style={styles.buttonContainer}>
         <PrimaryButton onTap={Submit} buttonText="Sign UP" />
       </View>

@@ -8,18 +8,21 @@ import axios from "axios";
 import { isValidObj } from "./SignUp";
 import { isValidEmail } from "./SignUp";
 import { updateError } from "./SignUp";
-import { BASE_URL } from "@env";
-import { ADMIN_USER } from "@env";
-import { ADMIN_PASSWORD } from "@env";
-import { WORKER_ADMIN_USER } from "@env";
-import { WORKER_ADMIN_PASSWORD } from "@env";
+import {
+  BASE_URL,
+  ADMIN_USER,
+  ADMIN_PASSWORD,
+  WORKER_ADMIN_USER,
+  WORKER_ADMIN_PASSWORD,
+} from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loader from "../components/Loader";
 const SignIn = () => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [errorValue, setErrorValue] = useState("");
+  const [loader, setLoader] = useState(false);
   const { email, password } = userInfo;
-  const [loginIsTrue, setLoginIsTrue] = useState(false);
   const navigation = useNavigation();
 
   const handleOnChangeText = (value, fieldName) => {
@@ -28,28 +31,34 @@ const SignIn = () => {
 
   const sendRequest = async () => {
     console.log(`${BASE_URL}loginUser`);
+    setLoader(true);
     try {
       const response = await axios.post(`${BASE_URL}loginUser`, {
         email,
         password,
       });
       const result = await response.data;
-      const Token = result?.authToken;
-      const Name = result?.name;
-      const Userid = result?.id;
-      if (Token) {
-        setLoginIsTrue(true);
-        await AsyncStorage.setItem(
-          "userData",
-          JSON.stringify({
-            Auth_Token: Token,
-            User_Name: Name,
-            User_Id: Userid,
-          })
-        );
-        navigation.navigate("Home", {
-          id: Userid,
-        });
+      console.log("The Response from SERVER:", result);
+      if (result.success) {
+        const Token = result?.authToken;
+        const Name = result?.name;
+        const Userid = result?.id;
+        if (Token) {
+          await AsyncStorage.setItem(
+            "userData",
+            JSON.stringify({
+              Auth_Token: Token,
+              User_Name: Name,
+              User_Id: Userid,
+            })
+          );
+          setLoader(false);
+          navigation.navigate("Home", {
+            id: Userid,
+          });
+        }
+      } else {
+        setErrorValue(result.message);
       }
     } catch (error) {
       console.log("error", error.message);
@@ -186,6 +195,7 @@ const SignIn = () => {
           {errorValue}
         </Text>
       )}
+      {loader && <Loader />}
       <View style={styles.buttonContainer}>
         <PrimaryButton buttonText="SignIn" onTap={formSubmit} />
       </View>
