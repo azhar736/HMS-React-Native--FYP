@@ -4,27 +4,23 @@ import PrimaryTitle from "../components/PrimaryTitle";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { BASE_URL } from "../env.config";
+import { BASE_URL } from "@env";
 import axios from "axios";
 
+//Function for Validating the input Obj
 export const isValidObj = (obj) => {
-  //Fist Conver the Objet into array and then check all field are filled
-  // return Object.values(obj).every((value) => value?.trim());
   const Data = Object.values(obj);
   let checkArary = Data.every((value) => {
     if (value) {
       return true;
-      // console.log("TRUEEE");
     } else {
       return false;
-      // console.log("FALSEEE");
     }
   });
-  // console.log("THE DATA:", Data);
-  // console.log("THE New Data:", checkArary);
   return checkArary;
 };
 
+//Handling Errors
 export const updateError = (error, stateUpdater) => {
   stateUpdater(error);
   console.log(error);
@@ -33,6 +29,7 @@ export const updateError = (error, stateUpdater) => {
   }, 3000);
 };
 
+//Validate the Email Address
 export const isValidEmail = (value) => {
   const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
   return regx.test(value);
@@ -47,7 +44,6 @@ const SignUp = () => {
     isActive: true,
     accountType: "STUDENT",
   });
-
   const [error, setError] = useState("");
   const [errorValue, setErrorValue] = useState("");
   const {
@@ -128,6 +124,7 @@ const SignUp = () => {
     }
   };
 
+  //Form Validation
   const isValidForm = () => {
     var upperCase = new RegExp("[A-Z]");
     var lowerCase = new RegExp("[a-z]");
@@ -174,12 +171,8 @@ const SignUp = () => {
     return true;
   };
 
+  //Form Submission
   const Submit = () => {
-    // console.log("email", email);
-    // console.log("name", name);
-    // console.log("password", password);
-    // console.log("confirmPassword", confirmPassword);
-    // console.log("The ERROR=", errorValue);
     if (isValidForm()) {
       //SubmitForm
       console.log(userInfo);

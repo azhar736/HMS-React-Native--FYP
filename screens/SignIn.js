@@ -4,36 +4,28 @@ import { Ionicons } from "@expo/vector-icons";
 import PrimaryButton from "../components/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { BASE_URL } from "../env.config";
 import axios from "axios";
 import { isValidObj } from "./SignUp";
 import { isValidEmail } from "./SignUp";
 import { updateError } from "./SignUp";
+import { BASE_URL } from "@env";
+import { ADMIN_USER } from "@env";
+import { ADMIN_PASSWORD } from "@env";
+import { WORKER_ADMIN_USER } from "@env";
+import { WORKER_ADMIN_PASSWORD } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const SignIn = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-  });
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [errorValue, setErrorValue] = useState("");
-  const {
-    fullName,
-    email,
-    password,
-    confirmPassword,
-    isActive,
-    accountType,
-  } = userInfo;
+  const { email, password } = userInfo;
+  const [loginIsTrue, setLoginIsTrue] = useState(false);
+  const navigation = useNavigation();
 
   const handleOnChangeText = (value, fieldName) => {
     setUserInfo({ ...userInfo, [fieldName]: value });
   };
 
-  const [loginIsTrue, setLoginIsTrue] = useState(false);
-  const navigation = useNavigation();
   const sendRequest = async () => {
     console.log(`${BASE_URL}loginUser`);
     try {
@@ -42,7 +34,6 @@ const SignIn = () => {
         password,
       });
       const result = await response.data;
-      // console.log("The Data from the server", result?.authToken);
       const Token = result?.authToken;
       const Name = result?.name;
       const Userid = result?.id;
@@ -65,8 +56,8 @@ const SignIn = () => {
       setErrorValue(error.message);
     }
   };
-  console.log("The State", loginIsTrue);
-  // isValidObj()
+
+  //Validating the Form
   const isValidForm = () => {
     var upperCase = new RegExp("[A-Z]");
     var lowerCase = new RegExp("[a-z]");
@@ -105,20 +96,20 @@ const SignIn = () => {
       );
     return true;
   };
+
+  //Form Submission
   const formSubmit = () => {
-    // console.log(email);
-    // console.log(password);
     if (isValidForm()) {
       //SubmitForm
       console.log("Form is Valid");
-      if (email === "admin@gmail.com") {
-        if (password === "Admin@1.2.3") {
+      if (email === ADMIN_USER) {
+        if (password === ADMIN_PASSWORD) {
           navigation.navigate("Admin");
         } else {
           setErrorValue("Invalid Password, Try Again");
         }
-      } else if (email === "workeradmin@gmail.com") {
-        if (password === "Worker@1.2.3") {
+      } else if (email === WORKER_ADMIN_USER) {
+        if (password === WORKER_ADMIN_PASSWORD) {
           navigation.navigate("WorkerAdmin");
         } else {
           setErrorValue("Invalid Password, Try Again");
@@ -143,6 +134,7 @@ const SignIn = () => {
         <TextInput
           keyboardType="email-address"
           placeholder="email"
+          autoCapitalize="none"
           style={styles.input}
           onChangeText={(value) => handleOnChangeText(value, "email")}
         />
