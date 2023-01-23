@@ -30,7 +30,7 @@ const BookedRoom = ({ route, navigation }) => {
   };
   const sendRequest = async () => {
     console.log(`${BASE_URL}bookRoom`);
-    const RoomId = route.params;
+    const RoomId = route.params.id;
     try {
       const response = await axios.post(`${BASE_URL}bookRoom`, {
         bookedByUser: getDataFromLocal.User_Id,
@@ -46,7 +46,7 @@ const BookedRoom = ({ route, navigation }) => {
   };
   const handleClick = () => {
     console.log("Button Clicked");
-    console.log(route.params);
+    console.log(route.params.id);
     const result = sendRequest();
     if (result) {
       navigation.navigate("UserDashboard");

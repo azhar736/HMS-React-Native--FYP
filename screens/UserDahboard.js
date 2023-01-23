@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,11 +8,9 @@ import RegisterAComplains from "../components/RegisterAComplains";
 import UserAttendenceInfo from "../components/UserAttendenceInfo";
 import SubmitBills from "../components/SubmitBills";
 import { AntDesign } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import QRScanner from "../components/QRScanner";
 import { useNavigation } from "@react-navigation/native";
 import EmergencyContact from "../components/EmergencyContact";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import PrimaryButton from "../components/PrimaryButton";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -26,13 +24,13 @@ function RegisterAComplain() {
     </View>
   );
 }
-function TrackAttendence() {
-  return (
-    <View>
-      <UserAttendenceInfo />
-    </View>
-  );
-}
+// function TrackAttendence() {
+//   return (
+//     <View>
+//       <UserAttendenceInfo />
+//     </View>
+//   );
+// }
 const SubmitBill = () => {
   return (
     <View>
@@ -61,10 +59,11 @@ function EmerygencyContactDetails() {
 // }
 const Drawer = createDrawerNavigator();
 const UserDahboard = () => {
-  console.log("USER ID>>>>>>>", userId);
+  // console.log("USER ID>>>>>>>", userId);
 
   const navigation = useNavigation();
   const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [isActive, setIsActive] = useState(true);
   const [loading, setLoading] = useState(true);
   const registerComplain = () => {
@@ -78,7 +77,11 @@ const UserDahboard = () => {
     console.log("generate Bill");
   };
   const Logout = () => {
-    navigation.replace("Login");
+    AsyncStorage.removeItem("userData");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
   };
 
   const submitYourBill = () => {
@@ -88,6 +91,7 @@ const UserDahboard = () => {
   useEffect(() => {
     getTokenFromLocalStorage();
   }, []);
+
   useEffect(() => {
     fetchUsers();
   }, [userId]);
@@ -95,7 +99,9 @@ const UserDahboard = () => {
   const getTokenFromLocalStorage = async () => {
     const userData = await AsyncStorage.getItem("userData");
     const temp = JSON.parse(userData);
+    console.log("The Data from Local Storage in User Dashboard Page:", temp);
     setUserId(temp.User_Id);
+    setUserName(temp.User_Name);
     console.log("The LoggedIn User Id:", temp.User_Id);
   };
 
@@ -121,7 +127,11 @@ const UserDahboard = () => {
     <>
       {loading ? (
         <>
-          <Feather name="loader" size={24} color="black" />
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Feather name="loader" size={24} color="black" />
+          </View>
         </>
       ) : (
         <>
@@ -140,7 +150,7 @@ const UserDahboard = () => {
             </>
           ) : (
             <>
-              <Text>{isActive ? "true" : "false"}</Text>
+              {/* <Text>{isActive ? "true" : "false"}</Text> */}
 
               <Drawer.Navigator
                 defaultScreenOptions={{
@@ -153,14 +163,24 @@ const UserDahboard = () => {
                   component={UserDashboard}
                   options={{
                     headerRight: () => (
-                      <View style={{ marginRight: 25 }}>
-                        <MaterialCommunityIcons
-                          name="line-scan"
-                          size={28}
-                          color="black"
-                          onPress={() => navigation.navigate("Scanner")}
-                        />
-                      </View>
+                      <Pressable
+                        onPress={() =>
+                          navigation.navigate("UserProfile", { userId: userId })
+                        }
+                      >
+                        <View
+                          style={{
+                            marginRight: 25,
+                            borderWidth: 2,
+                            borderColor: "#58fcb9",
+                            paddingVertical: 4,
+                            paddingHorizontal: 8,
+                            borderRadius: 8,
+                          }}
+                        >
+                          <Text>Welcome: {userName}</Text>
+                        </View>
+                      </Pressable>
                     ),
                   }}
                 />
@@ -168,10 +188,10 @@ const UserDahboard = () => {
                   name="Register A Complain"
                   component={RegisterAComplain}
                 />
-                <Drawer.Screen
+                {/* <Drawer.Screen
                   name="Check Attendence Details"
                   component={TrackAttendence}
-                />
+                /> */}
                 <Drawer.Screen
                   name="Emergency Contact"
                   component={EmerygencyContactDetails}

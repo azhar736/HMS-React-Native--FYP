@@ -52,7 +52,13 @@ const styles = StyleSheet.create({
     width: 350,
   },
   Container1: {
+    // borderTopWidth: 2,
+    // borderLeftWidth: 2,
+    // borderBottomWidth: 2,
     borderWidth: 4,
+    borderRadius: 6,
+    marginVertical: 4,
+    marginHorizontal: 4,
     borderColor: "#58fcb9",
     width: "40%",
     alignItems: "center",
@@ -62,6 +68,9 @@ const styles = StyleSheet.create({
   },
   Container2: {
     borderWidth: 4,
+    borderRadius: 6,
+    marginVertical: 4,
+    marginHorizontal: 4,
     borderColor: "#58fcb9",
     width: "60%",
     alignItems: "center",

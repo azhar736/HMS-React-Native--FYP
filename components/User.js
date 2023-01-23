@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import MealList from "./MealList";
+import { useNavigation } from "@react-navigation/native";
 import PrimaryTitle from "./PrimaryTitle";
 import { BASE_URL } from "@env";
 import axios from "axios";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
+import UserAttendenceInfo from "./UserAttendenceInfo";
 const User = () => {
-  const [messTimings, setMessTimings] = useState("");
+  const navigation = useNavigation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,6 +54,20 @@ const User = () => {
       <View>
         <MealList />
       </View>
+      <View style={styles.ScanContainer}>
+        <MaterialCommunityIcons
+          name="line-scan"
+          size={36}
+          color="black"
+          onPress={() => navigation.navigate("Scanner")}
+        />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Scan</Text>
+      </View>
+      <View>
+        <UserAttendenceInfo />
+      </View>
     </View>
   );
 };
@@ -62,7 +79,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   header: {
-    borderColor: "yellow",
+    // borderColor: "yellow",
+    borderColor: "black",
     alignItems: "center",
   },
   content: {
@@ -88,5 +106,17 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     fontWeight: "600",
+  },
+  ScanContainer: {
+    marginTop: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    fontSize: 16,
   },
 });

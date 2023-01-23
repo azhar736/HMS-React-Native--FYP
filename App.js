@@ -18,6 +18,7 @@ import QRScanner from "./components/QRScanner";
 import EditModel from "./components/EditModel";
 import BookedRoom from "./screens/BookedRoom";
 import SubmitBills from "./components/SubmitBills";
+import UserProfile from "./components/UserProfile";
 
 export default function App() {
   const SubmitBill = () => {
@@ -46,6 +47,7 @@ export default function App() {
         <Stack.Screen name="Admin" component={AdminDashboard} />
         <Stack.Screen name="EditUser" component={EditModel} />
         <Stack.Screen name="SubmitBill" component={SubmitBill} />
+        <Stack.Screen name="UserProfile" component={UserProfile} />
         {/* <SignUp /> */}
         {/* <SignIn /> */}
         {/* <Profile /> */}
