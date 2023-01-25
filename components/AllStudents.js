@@ -1,6 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { BASE_URL } from "@env";
+import axios from "axios";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import EditModel from "./EditModel";
 import PrimaryTitle from "./PrimaryTitle";
@@ -14,6 +16,28 @@ const AllStudents = () => {
   ]);
   const [selectedItems, setSelectedItems] = useState("");
   const navigation = useNavigation();
+  const [studentsList, setStudentsList] = useState([]);
+  const[toggle,setToggle]=useState(false);
+
+  useEffect(() => {
+    getAllStudent();
+  }, []);
+  useEffect(() => {
+    getAllStudent();
+  }, [toggle]);
+
+  const getAllStudent = async () => {
+    try {
+      console.log("Function Triggered");
+      console.log(BASE_URL);
+      const response = await axios.get(`${BASE_URL}allUsers`);
+      const data1 = await response.data;
+      console.log("The Data from API:", data1.data);
+      setStudentsList(data1.data);
+    } catch (error) {
+      console.log("error: ", error.message);
+    }
+  };
   useEffect(() => {
     let array = [];
     let myValue;
@@ -42,6 +66,31 @@ const AllStudents = () => {
     return console.log("Return this log");
   };
 
+  const deletUsers = async ({userId}) => {
+    console.log("The USER ID i Want to Delete",userId);
+    console.log(BASE_URL);
+    try {
+      setToggle(false);
+        const fetchedUser = await axios.post(`${BASE_URL}deletUser`,{
+          id:userId
+        });
+        const response = await fetchedUser.data;
+        console.log("The API Response",response);
+        if(response.success) {
+          setToggle(true);
+            Alert.alert("Deleted Successfully","User has been Deleted successfully",[
+                {
+                    text:'ok',
+                    onPress:()=>navigation.navigate("Admin")
+                }
+            ]);
+            // navigation.navigate("Admin");
+        }
+    } catch (error) {
+      console.log("error ", error.message);
+    }
+  };
+
   return (
     <View>
       <PrimaryTitle title="All Students" />
@@ -63,225 +112,37 @@ const AllStudents = () => {
           <View style={styles.headingCol5}>
             <Text style={styles.heading}>Status</Text>
           </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>01</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-          <View style={styles.textCol5}>
-            <DropDownPicker
-              open={open}
-              placeholder={""}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              onSelectItem={(item) => {
-                // console.log(item);
-                setSelectedItems(item);
-              }}
-              disableBorderRadius={true}
-              style={{
-                borderWidth: 0,
-                padding: 0,
-              }}
-              textStyle={{
-                fontSize: 12,
-                fontWeight: "bold",
-              }}
-              containerStyle={
-                {
-                  // borderWidth: 2,
-                }
-              }
-              arrowIconStyle={{
-                width: 15,
-                height: 15,
-              }}
-            />
+          <View style={styles.headingCol6}>
+            <Text style={styles.heading}>Status</Text>
           </View>
         </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>02</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test2@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Uzair</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-          <View style={styles.textCol5}>
-            <DropDownPicker
-              open={open}
-              placeholder={""}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              onSelectItem={(item) => {
-                // console.log(item);
-                setSelectedItems(item);
-              }}
-              disableBorderRadius={true}
-              style={{
-                borderWidth: 0,
-                padding: 0,
-              }}
-              textStyle={{
-                fontSize: 12,
-                fontWeight: "bold",
-              }}
-              containerStyle={
-                {
-                  // borderWidth: 2,
-                }
-              }
-              arrowIconStyle={{
-                width: 15,
-                height: 15,
-              }}
-            />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>03</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test3@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Kashif</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-          <View style={styles.textCol5}>
-            <DropDownPicker
-              open={open}
-              placeholder={""}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              onSelectItem={(item) => {
-                // console.log(item);
-                setSelectedItems(item);
-              }}
-              disableBorderRadius={true}
-              style={{
-                borderWidth: 0,
-                padding: 0,
-              }}
-              textStyle={{
-                fontSize: 12,
-                fontWeight: "bold",
-              }}
-              containerStyle={
-                {
-                  // borderWidth: 2,
-                }
-              }
-              arrowIconStyle={{
-                width: 15,
-                height: 15,
-              }}
-            />
-          </View>
-        </View>
-        <View style={styles.textContainer}>
-          {/* Form Body */}
-          <View style={styles.textCol1}>
-            <Text style={styles.text}>01</Text>
-          </View>
-          <View style={styles.textCol2}>
-            <Text style={styles.text}>test@gmail.com</Text>
-          </View>
-          <View style={styles.textCol3}>
-            <Text style={styles.text}>Azhar</Text>
-          </View>
-          <View style={styles.textCol4}>
-            <Toggle />
-          </View>
-          <View style={styles.textCol5}>
-            <DropDownPicker
-              open={open}
-              placeholder={""}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              onSelectItem={(item) => {
-                // console.log(item);
-                setSelectedItems(item);
-              }}
-              disableBorderRadius={true}
-              style={{
-                borderWidth: 0,
-                padding: 0,
-              }}
-              textStyle={{
-                fontSize: 12,
-                fontWeight: "bold",
-              }}
-              containerStyle={
-                {
-                  // borderWidth: 2,
-                }
-              }
-              arrowIconStyle={{
-                width: 15,
-                height: 15,
-              }}
-            />
-          </View>
-        </View>
-      </View>
-      <View>
-        <View>
-          <View style={styles.Container}>
-            <View style={styles.header}>
-              <Text style={styles.headingText}>Mess Timing</Text>
+        <ScrollView style={styles.listContainer}>
+          {studentsList.map((student, index) => (
+            // console.log("The Signle Student Detail=", ---> Id of every user student._id)
+            <View style={styles.textContainer} key={index}>
+            {/* Form Body */}
+            <View style={styles.textCol1}>
+              <Text style={styles.text}>{index + 1}</Text>
             </View>
-            <View style={styles.content}>
-              <View style={styles.contentContainer}>
-                <Text style={styles.text}>BreakFast:</Text>
-                <Text style={styles.text}>8.00 AM</Text>
-                <Text style={styles.text}>Edit</Text>
-              </View>
-              <View style={styles.contentContainer}>
-                <Text style={styles.text}>Lunch:</Text>
-                <Text style={styles.text}>12:00 AM</Text>
-                <Text style={styles.text}>Edit</Text>
-              </View>
-              <View style={styles.contentContainer}>
-                <Text style={styles.text}>Dinner:</Text>
-                <Text style={styles.text}>7.00 PM</Text>
-                <Text style={styles.text}>Edit</Text>
-              </View>
+            <View style={styles.textCol2}>
+              <Text style={styles.text}>{student.email}</Text>
             </View>
+            <View style={styles.textCol3}>
+              <Text style={styles.text}>{student.name}</Text>
+            </View>
+            <View style={styles.textCol4}>
+              <Toggle userId={student._id} status={student.isActive} />
+            </View>
+            <Pressable onPress={()=>navigation.navigate("EditUser",{userId:student._id,userName:student.name,userEmail:student.email})} style={styles.textCol5}>
+            <Text>Edit</Text>
+        </Pressable>
+            <Pressable onPress={()=>deletUsers({userId:student._id})} style={styles.textCol6}>
+            <Text>Delete</Text>
+        </Pressable>
           </View>
-        </View>
+           
+))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -296,9 +157,12 @@ const styles = StyleSheet.create({
   headingContainer: {
     flexDirection: "row",
   },
+  listContainer: {
+    height:550
+  },
   headingCol1: {
     padding: 4,
-    width: "10%",
+    width: "8%",
     borderWidth: 4,
     borderColor: "black",
     alignItems: "center",
@@ -306,27 +170,32 @@ const styles = StyleSheet.create({
   },
   headingCol2: {
     padding: 4,
-    width: "40%",
+    width: "35%",
     borderWidth: 4,
     borderColor: "black",
     alignItems: "center",
   },
   headingCol3: {
     padding: 4,
-    width: "15%",
+    width: "14%",
     borderWidth: 4,
     borderColor: "black",
     alignItems: "center",
   },
   headingCol4: {
     padding: 4,
-    width: "15%",
+    width: "12%",
     borderWidth: 4,
     borderColor: "black",
     alignItems: "center",
   },
   headingCol5: {
-    width: "20%",
+    width: "15%",
+    borderWidth: 4,
+    borderColor: "black",
+  },
+  headingCol6: {
+    width: "16%",
     borderWidth: 4,
     borderColor: "black",
   },
@@ -334,7 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textCol1: {
-    width: "10%",
+    width: "8%",    
     borderWidth: 2,
     padding: 4,
     borderColor: "#58fcb9",
@@ -342,7 +211,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textCol2: {
-    width: "40%",
+    width: "35%",
     borderWidth: 2,
     padding: 4,
     borderColor: "#58fcb9",
@@ -350,7 +219,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textCol3: {
-    width: "15%",
+    width: "14%",
     borderWidth: 2,
     padding: 4,
     borderColor: "#58fcb9",
@@ -358,7 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textCol4: {
-    width: "15%",
+    width: "12%",
     borderWidth: 2,
     padding: 4,
     borderColor: "#58fcb9",
@@ -366,7 +235,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textCol5: {
-    width: "20%",
+    width: "15%",
+    borderColor: "#346eeb",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#58fcb9",
+  },
+  textCol6: {
+    width: "16%",
     borderColor: "#346eeb",
     justifyContent: "center",
     borderWidth: 2,

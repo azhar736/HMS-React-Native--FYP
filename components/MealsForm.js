@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import useForceUpdate from "use-force-update";
 import MealsFormInput from "./MealsFormInput";
 import Model from "./Model";
@@ -21,18 +21,6 @@ const MealsForm = () => {
     };
     fetchList();
   }, []);
-  const DATA = [
-    {
-      id: "1",
-      title: "Biryani",
-      units: "100",
-    },
-    {
-      id: "2",
-      title: "Qorma",
-      units: "80",
-    },
-  ];
   const renderItem = (itemData) => {
     console.log(itemData.index);
     console.log(itemData.item.mealName);
@@ -47,8 +35,14 @@ const MealsForm = () => {
     );
   };
   const OpenModelHandler = () => {
+    console.log("Generate QR Code Button Pressed");
     console.log("Total:", sum);
+    if(sum>1){
     setModel(true);
+    }
+    else{
+      Alert.alert("Please Enter Unit's for At Least One Meal");
+    }
   };
   const CloseModelHanler = () => {
     setModel(false);

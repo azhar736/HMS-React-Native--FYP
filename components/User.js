@@ -9,13 +9,21 @@ import { useEffect, useState } from "react";
 import UserAttendenceInfo from "./UserAttendenceInfo";
 const User = () => {
   const navigation = useNavigation();
+  const[breakFastTime,setBreakFastTime] = useState("");
+  const[lunchTime,setLunchTime] = useState("");
+  const[dinnerTime,setDinnerTime] = useState("");
   useEffect(() => {
     const fetchData = async () => {
+      console.log("BASE URL on User Info:",BASE_URL);
       try {
         const response = await axios.get(`${BASE_URL}getDetails`);
         const data1 = await response.data;
-        console.log(data1.data);
-        setMessTimings(data1.data);
+        data1.data.map((data)=>{
+          setBreakFastTime(data.breakFastTime);
+          setDinnerTime(data.dinnerTime);
+          setLunchTime(data.lunchTime);
+        });
+        // setMessTimings(data1.data);
       } catch (error) {
         console.log("error", error.message);
       }
@@ -38,16 +46,16 @@ const User = () => {
             <Text style={styles.text}>BreakFast:</Text>
             <Text style={styles.text}>
               {/* {messTimings.map(({ breakFastTime }) => breakFastTime)} */}
-              8.00 AM
+              {breakFastTime} AM
             </Text>
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.text}>Lunch:</Text>
-            <Text style={styles.text}>12:00 AM</Text>
+            <Text style={styles.text}>{lunchTime} AM</Text>
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.text}>Dinner:</Text>
-            <Text style={styles.text}>7.00 PM</Text>
+            <Text style={styles.text}>{dinnerTime} PM</Text>
           </View>
         </View>
       </View>

@@ -11,12 +11,15 @@ import { BASE_URL } from "@env";
 const Home = ({ navigation, route }) => {
   const [showRoom, setShowRoom] = useState(true);
   const [Rooms, setRooms] = useState([]);
+  console.log("The id from the params ",route.params.id);
   const fetchUsers = async () => {
+    console.log("Home Page:",BASE_URL);
     try {
       const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
         id: route.params.id,
       });
       const response = await fetchedUser.data;
+      console.log("The Response from Server on Home Page",response);
       if (response?.data?.roomId?.length > 0) {
         navigation.replace("UserDashboard");
       } else {

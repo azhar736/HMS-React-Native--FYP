@@ -3,17 +3,33 @@ import axios from "axios";
 import { BASE_URL } from "@env";
 import { useEffect } from "react";
 import PrimaryButton from "./PrimaryButton";
+import { useState } from "react";
 
 const UserProfile = ({ route, navigation }) => {
   console.log("The USer ID on Profile Screen:", route.params.userId);
+  const [name,setName]=useState("");
+  const [email,setEmail] = useState("");
+  const [accountStatus,setAccountStatus] = useState("");
+  const [seatNo,setSeatNo] = useState("");
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.post(`${BASE_URL}singleUser`, {
-          //   id: route.params.userId,
+            id: route.params.userId,
         });
         const data1 = await response.data;
-        console.log("THE  USER DATA FROM SERVER", data1.data);
+        console.log("THE  USER DATA FROM SERVER on USER Profile Page", data1.data);
+        setName(data1.data?.name);
+        setEmail(data1.data?.email);
+        if(data1.data?.isActive){
+          console.log("Active")
+          setAccountStatus("Active")
+        }
+        else{
+          console.log("Disabled");
+          setAccountStatus("Disabled")
+        }
+        setSeatNo(data1.data?.seatNumber)
       } catch (error) {
         console.log("error", error.message);
       }
@@ -36,16 +52,22 @@ const UserProfile = ({ route, navigation }) => {
             <View style={styles.row}>
               <Text style={styles.heading}>Account Status</Text>
             </View>
+            <View style={styles.row}>
+              <Text style={styles.heading}>Seat No</Text>
+            </View>
           </View>
           <View style={styles.col2}>
             <View style={styles.row}>
-              <Text style={styles.text}>Azhar</Text>
+              <Text style={styles.text}>{name}</Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.text}>azhar@gmail.com</Text>
+              <Text style={styles.text}>{email}</Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.text}>Active</Text>
+              <Text style={styles.text}>{accountStatus}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.text}>{seatNo}</Text>
             </View>
           </View>
         </View>

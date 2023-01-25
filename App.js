@@ -19,6 +19,8 @@ import EditModel from "./components/EditModel";
 import BookedRoom from "./screens/BookedRoom";
 import SubmitBills from "./components/SubmitBills";
 import UserProfile from "./components/UserProfile";
+import EditUser from "./components/EditUser";
+import DeleteUser from "./components/DeleteUser";
 
 export default function App() {
   const SubmitBill = () => {
@@ -45,9 +47,11 @@ export default function App() {
         <Stack.Screen name="Scanner" component={QRScanner} />
         <Stack.Screen name="WorkerAdmin" component={WorkerAdminDashboard} />
         <Stack.Screen name="Admin" component={AdminDashboard} />
-        <Stack.Screen name="EditUser" component={EditModel} />
+        {/* <Stack.Screen name="EditUser" component={EditModel} /> */}
         <Stack.Screen name="SubmitBill" component={SubmitBill} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="EditUser" component={EditUser} />
+        <Stack.Screen name="DeleteUser" component={DeleteUser} />
         {/* <SignUp /> */}
         {/* <SignIn /> */}
         {/* <Profile /> */}

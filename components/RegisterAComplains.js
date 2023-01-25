@@ -37,26 +37,22 @@ const RegisterAComplains = () => {
       console.log("The Response=", response.data);
       const data1 = await response.data;
       console.log(data1);
-      // if (data1) {
-      //   Alert.alert(
-      //     "Registered",
-      //     "Your Complain has been registered successfully",
-      //     [
-      //       {
-      //         text: "OK",
-      //       },
-      //     ]
-      //   );
-      // }
+      if (data1) {
+        Alert.alert(
+          "Registered",
+          "Your Complain has been registered successfully",
+          [
+            {
+              text: "OK",
+             onPress:()=>navigation.goBack()
+            },
+          ]
+        );
+      }
     } catch (error) {
       console.log("error: ", error.message);
     }
   };
-
-  // const navigateToDashboard = () => {
-  //   console.log("Function Trigger");
-  //   navigation.navigate("UserDashboard");
-  // };
   return (
     <View style={styles.rootContainer}>
       <PrimaryTitle title="Register Your Complain" />

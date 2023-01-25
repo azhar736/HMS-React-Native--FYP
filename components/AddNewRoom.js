@@ -71,8 +71,6 @@ export default AddNewRoom;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    borderWidth: 2,
-    borderColor: "red",
     flex: 1,
     paddingTop: 100,
     alignItems: "center",

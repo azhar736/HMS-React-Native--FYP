@@ -109,14 +109,23 @@ const UserDahboard = () => {
     try {
       setLoading(true);
       console.log("UUUSSSEEERRR ID", userId);
-      const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
-        id: userId,
-      });
-      const response = await fetchedUser.data;
-      if (response?.data?.isActive !== undefined) {
-        console.log("USER STATUS", response?.data?.isActive);
-        setIsActive(response?.data?.isActive);
-        setLoading(false);
+      console.log(BASE_URL);
+      if(userId.length>1){
+        console.log("INSIDE IFFFFFFF");
+        const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
+          id: userId.toString(),
+        });
+        const response = await fetchedUser.data;
+        console.log("the Response from Booked User API",response)
+        if (response?.data?.isActive !== undefined) {
+          console.log("USER STATUS", response?.data?.isActive);
+          setIsActive(response?.data?.isActive);
+          setLoading(false);
+        }
+      }
+      else{
+        console.log("INSIDE ELSEEEEEE");
+        console.log("User id not found");
       }
     } catch (error) {
       console.log("error ", error.message);
