@@ -24,13 +24,6 @@ function RegisterAComplain() {
     </View>
   );
 }
-// function TrackAttendence() {
-//   return (
-//     <View>
-//       <UserAttendenceInfo />
-//     </View>
-//   );
-// }
 const SubmitBill = () => {
   return (
     <View>
@@ -38,44 +31,19 @@ const SubmitBill = () => {
     </View>
   );
 };
-
 function UserDashboard() {
   return <User />;
 }
 function EmerygencyContactDetails() {
   return <EmergencyContact />;
 }
-// function Scan() {
-//   console.log("press");
-//   return <QRScanner />;
-// }
-// function MyDrawer() {
-//   return (
-//     <Drawer.Navigator useLegacyImplementation>
-//       <Drawer.Screen name="Feed" component={Feed} />
-//       <Drawer.Screen name="Article" component={Article} />
-//     </Drawer.Navigator>
-//   );
-// }
 const Drawer = createDrawerNavigator();
 const UserDahboard = () => {
-  // console.log("USER ID>>>>>>>", userId);
-
   const navigation = useNavigation();
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [isActive, setIsActive] = useState(true);
   const [loading, setLoading] = useState(true);
-  const registerComplain = () => {
-    console.log("Complain registrated Successfully!");
-  };
-  const updateProfile = () => {
-    console.log("Update Profile");
-  };
-
-  const generateBill = () => {
-    console.log("generate Bill");
-  };
   const Logout = () => {
     AsyncStorage.removeItem("userData");
     navigation.reset({
@@ -102,7 +70,7 @@ const UserDahboard = () => {
     console.log("The Data from Local Storage in User Dashboard Page:", temp);
     setUserId(temp.User_Id);
     setUserName(temp.User_Name);
-    console.log("The LoggedIn User Id:", temp.User_Id);
+    console.log("The LoggedIn User Idddd:", temp.User_Id);
   };
 
   const fetchUsers = async () => {
@@ -112,6 +80,7 @@ const UserDahboard = () => {
       console.log(BASE_URL);
       if(userId.length>1){
         console.log("INSIDE IFFFFFFF");
+        console.log(BASE_URL);
         const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
           id: userId.toString(),
         });

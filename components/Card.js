@@ -1,17 +1,24 @@
 import { useNavigation } from "@react-navigation/native";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const Card = ({ title, description, price, image, _id }) => {
+const Card = ({ title, description, price, image, _id,totalSeates,seatsRemaining }) => {
   const navigation = useNavigation();
+  const bookedRoom=()=>{
+    console.log("The Remaining Seats ISSSSSS",seatsRemaining);
+    if(seatsRemaining>0){
+      navigation.navigate("RoomDetails", { id: _id })
+    }
+    else{
+      Alert.alert("This Room is already Booked");
+    }
+  }
   return (
     <Pressable
-      onPress={() => navigation.navigate("RoomDetails", { id: _id })}
+      onPress={bookedRoom}
       style={styles.rootContainer}
     >
       <View style={styles.imageContainer}>
-        <View>
-          <Text>Image</Text>
-        </View>
+        <Image style={{height:"100%",width:"100%",borderRadius: 20}} source={{uri:'https://pix10.agoda.net/hotelImages/34737134/0/53aa6043102c728c3d46616d413a22ee.jpg?ce=0&s=450x450'}} />
       </View>
       <View style={styles.textContainer}>
         <View style={styles.headingContainer}>
@@ -19,23 +26,23 @@ const Card = ({ title, description, price, image, _id }) => {
             <Text style={styles.headingLeft}>{title}</Text>
           </View>
           <View>
-            <Text style={styles.headingRight}>${price}</Text>
+            <Text style={styles.headingRight}>RS:{price}</Text>
           </View>
         </View>
         <View style={styles.headingContainer}>
           <View>
-            <Text style={styles.textLeft}>city</Text>
+            <Text style={styles.textLeft}>Total Seats</Text>
           </View>
           <View>
-            <Text style={styles.textRight}>/Month</Text>
+            <Text style={styles.textRight}>{totalSeates}</Text>
           </View>
         </View>
         <View style={styles.headingContainer}>
           <View>
-            <Text style={styles.textLeft}>4.8(4000 reviews)</Text>
+            <Text style={styles.textLeft}>Remaining Seats</Text>
           </View>
           <View>
-            <Text style={styles.textRight}>Save</Text>
+            <Text style={styles.textRight}>{seatsRemaining}</Text>
           </View>
         </View>
       </View>
@@ -53,21 +60,18 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginVertical: 10,
     flexDirection: "row",
-    justifyContent: "space-between",
-    borderWidth: 2,
-    borderColor: "blue",
+    elevation:7,
   },
   imageContainer: {
-    backgroundColor: "#50f2ad",
-    height: 70,
-    width: 70,
+    height: 80,
+    width: 80,
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
   },
   textContainer: {
     paddingHorizontal: 10,
-    width: 200,
+    width: 240,
   },
   headingContainer: {
     flexDirection: "row",
@@ -78,11 +82,13 @@ const styles = StyleSheet.create({
   headingLeft: {
     fontSize: 18,
     fontWeight: "bold",
+    width:120,
   },
   headingRight: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#50f2ad",
+    width:100,
   },
   textLeft: {
     fontSize: 14,

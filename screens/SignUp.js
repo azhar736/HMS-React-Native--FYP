@@ -249,7 +249,7 @@ const SignUp = () => {
             onPress={() => navigation.navigate("Login")}
             style={styles.linkText}
           >
-            Sign in
+            Sign In
           </Text>
         </View>
       </View>

@@ -12,6 +12,7 @@ const Home = ({ navigation, route }) => {
   const [showRoom, setShowRoom] = useState(true);
   const [Rooms, setRooms] = useState([]);
   console.log("The id from the params ",route.params.id);
+  console.log("The name from the params ",route.params.username);
   const fetchUsers = async () => {
     console.log("Home Page:",BASE_URL);
     try {
@@ -47,50 +48,15 @@ const Home = ({ navigation, route }) => {
     <>
       {showRoom && (
         <ScrollView style={styles.rootContainer}>
-          <View style={styles.topBarContainer}>
-            <View>
-              <Text>Logo</Text>
-            </View>
-            <View>
-              <Text>
-                <AntDesign name="bells" size={24} color="black" />
-              </Text>
-            </View>
-          </View>
           <View>
-            <Text style={styles.title}>Hello, Azhar</Text>
-          </View>
-          <View style={styles.formContainer}>
-            <FontAwesome name="search" size={24} color="lightgray" />
-            <TextInput
-              keyboardType="default"
-              placeholder="Search"
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.categoryContainer}>
-            <Category
-              Title="Recomended"
-              style={styles.category}
-              isActive={true}
-            />
-            <Category
-              Title="Popular"
-              style={styles.category}
-              isActive={false}
-            />
-            <Category
-              Title="Trending"
-              style={styles.category}
-              isActive={false}
-            />
+            <Text style={styles.title}>Hello, {route.params.username}</Text>
           </View>
           <View style={styles.container}>
             <Slider />
           </View>
           <View style={styles.textContainer}>
             <View>
-              <Text style={styles.leftText}>Recently Booked</Text>
+              <Text style={styles.leftText}>All Rooms</Text>
             </View>
             <View>
               <Text style={styles.textRight}>See All</Text>
@@ -98,8 +64,8 @@ const Home = ({ navigation, route }) => {
           </View>
           <View style={styles.cardContainer}>
             {Rooms?.map((Room) => (
-              <Card key={Room._id} {...Room} />
-            ))}
+            <Card key={Room._id} {...Room} />
+          ))}
           </View>
         </ScrollView>
       )}
@@ -156,12 +122,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#50f2ad",
   },
   container: {
-    backgroundColor: "#50f2ad",
     marginHorizontal: 20,
     marginVertical: 20,
     height: 300,
     borderRadius: 30,
-    justifyContent: "space-between",
+    paddingLeft:8,
   },
   ratingContainer: {
     borderWidth: 2,
@@ -200,12 +165,10 @@ const styles = StyleSheet.create({
     color: "#50f2ad",
   },
   cardContainer: {
-    marginHorizontal: 30,
+    marginHorizontal: 10,
     marginVertical: 20,
     flexDirection: "column",
     justifyContent: "space-between",
-    borderWidth: 2,
-    borderColor: "red",
   },
 });
 

@@ -14,7 +14,7 @@ const User = () => {
   const[dinnerTime,setDinnerTime] = useState("");
   useEffect(() => {
     const fetchData = async () => {
-      console.log("BASE URL on User Info:",BASE_URL);
+      console.log("BASE URL on User Infoooo:",BASE_URL);
       try {
         const response = await axios.get(`${BASE_URL}getDetails`);
         const data1 = await response.data;

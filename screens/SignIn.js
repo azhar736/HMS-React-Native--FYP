@@ -55,12 +55,18 @@ const SignIn = () => {
           setLoader(false);
           navigation.navigate("Home", {
             id: Userid,
+            username:Name,
           });
         }
       } else {
+        setLoader(false);
         setErrorValue(result.message);
+        setTimeout(()=>{
+          setErrorValue("");
+        },2000);
       }
     } catch (error) {
+      setLoader(false);
       console.log("error", error.message);
       setErrorValue(error.message);
     }
@@ -68,41 +74,9 @@ const SignIn = () => {
 
   //Validating the Form
   const isValidForm = () => {
-    var upperCase = new RegExp("[A-Z]");
-    var lowerCase = new RegExp("[a-z]");
-    var special = new RegExp("[!@#$%^&*]");
-    var num = new RegExp("[0-9]");
     //We Will accept Only if all fields has values
     if (!isValidObj(userInfo))
       return updateError("Required all fields!", setError);
-    //Only Valid email is allowed
-    if (!isValidEmail(email)) return updateError("Invalid email!", setError);
-    //Password must have 6 or more characters
-    if (!password.trim() || password.length < 6)
-      return updateError(
-        "Invalid password, password must be at leats 6 characters!",
-        setError
-      );
-    if (!upperCase.test(password))
-      return updateError(
-        "Invalid password, password must be at leats one UPPER Case Character!",
-        setError
-      );
-    if (!lowerCase.test(password))
-      return updateError(
-        "Invalid password, password must be at leats one Lower Case Character!",
-        setError
-      );
-    if (!special.test(password))
-      return updateError(
-        "Invalid password, password must contains a special Character!",
-        setError
-      );
-    if (!num.test(password))
-      return updateError(
-        "Invalid password, password must contain at least special Character!",
-        setError
-      );
     return true;
   };
 
@@ -147,17 +121,6 @@ const SignIn = () => {
           style={styles.input}
           onChangeText={(value) => handleOnChangeText(value, "email")}
         />
-        {error === "Invalid email!" ? (
-          <Text
-            style={{
-              color: "red",
-              fontSize: 12,
-              textAlign: "left",
-            }}
-          >
-            {error}
-          </Text>
-        ) : null}
         <TextInput
           keyboardType="default"
           placeholder="Password"
@@ -166,22 +129,6 @@ const SignIn = () => {
           style={styles.input}
           onChangeText={(value) => handleOnChangeText(value, "password")}
         />
-        {error.match("6 characters") ||
-        error.match(" UPPER Case Character") ||
-        error.match("Lower Case Character") ||
-        error.match("special Character") ||
-        error.match("least one number") ||
-        error.match("Password don't match") ? (
-          <Text
-            style={{
-              color: "red",
-              fontSize: 12,
-              textAlign: "left",
-            }}
-          >
-            {error}
-          </Text>
-        ) : null}
       </View>
       {errorValue && (
         <Text
@@ -200,15 +147,15 @@ const SignIn = () => {
         <PrimaryButton buttonText="SignIn" onTap={formSubmit} />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.subText}>
-          Don't have a account?
+        <Text style={styles.subText}> Don't have a account ?</Text>
+        <View style={styles.hightlightedText}>
           <Text
             onPress={() => navigation.navigate("Signup")}
             style={styles.linkText}
           >
             Sign UP
           </Text>
-        </Text>
+        </View>
       </View>
     </View>
   );
@@ -238,7 +185,9 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 8,
-    marginTop: 8,
+    marginTop: 16,
+    flexDirection: "row",
+    alignItems: "center",
   },
   subText: {
     fontSize: 12,
@@ -248,6 +197,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  hightlightedText: {
+    marginLeft: 4,
   },
   buttonContainer: {
     alignItems: "center",

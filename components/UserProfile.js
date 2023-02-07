@@ -6,7 +6,7 @@ import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";
 
 const UserProfile = ({ route, navigation }) => {
-  console.log("The USer ID on Profile Screen:", route.params.userId);
+  console.log("The USer ID on Profile Screens:", route.params.userId);
   const [name,setName]=useState("");
   const [email,setEmail] = useState("");
   const [accountStatus,setAccountStatus] = useState("");
@@ -29,7 +29,7 @@ const UserProfile = ({ route, navigation }) => {
           console.log("Disabled");
           setAccountStatus("Disabled")
         }
-        setSeatNo(data1.data?.seatNumber)
+        setSeatNo(data1.seatNumber)
       } catch (error) {
         console.log("error", error.message);
       }
