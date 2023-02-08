@@ -17,6 +17,7 @@ const AddNewRoom = () => {
     setSeatRemaining(e);
   };
   const bookRoom = async () => {
+    console.log(BASE_URL);
     try {
       const response = await axios.post(`${BASE_URL}addRoom`, {
         title,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#defff1",
     borderColor: "#58fcb9",
     width: 250,
-    borderRadius: 8,
+    borderRadius: 4,
     paddingVertical: 4,
     paddingHorizontal: 4,
     marginVertical: 8,

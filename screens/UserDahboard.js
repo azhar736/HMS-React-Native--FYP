@@ -80,7 +80,7 @@ const UserDahboard = () => {
       console.log(BASE_URL);
       if(userId.length>1){
         console.log("INSIDE IFFFFFFF");
-        console.log(BASE_URL);
+        console.log("The Base URL on User Dashboard is::",BASE_URL);
         const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
           id: userId.toString(),
         });

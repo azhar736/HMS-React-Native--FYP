@@ -32,6 +32,7 @@ const Home = ({ navigation, route }) => {
     }
   };
   const getAllRooms = async () => {
+    console.log("The Base on Home Page is::",BASE_URL);
     const response = await axios.get(`${BASE_URL}allRooms`);
     const data1 = response.data;
     setRooms(data1.data);

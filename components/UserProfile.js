@@ -13,6 +13,7 @@ const UserProfile = ({ route, navigation }) => {
   const [seatNo,setSeatNo] = useState("");
   useEffect(() => {
     const fetchUserData = async () => {
+      console.log("Base Url on Profile Page is",BASE_URL);
       try {
         const response = await axios.post(`${BASE_URL}singleUser`, {
             id: route.params.userId,

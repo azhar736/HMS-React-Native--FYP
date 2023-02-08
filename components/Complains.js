@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { BASE_URL } from "@env";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ const Complains = () => {
   }, []);
 
   const Allcomplain = async () => {
+    console.log(BASE_URL);
     try {
       const response = await axios.get(`${BASE_URL}allComplains`);
       // console.log("The Response=", response.data);
@@ -38,10 +39,11 @@ const Complains = () => {
           <Text style={styles.headingtext}>Complains</Text>
         </View>
       </View>
+      <ScrollView style={styles.listContainer}>
       {complains.map((complain, index) => (
         <View style={styles.formContainer}>
           <View style={styles.textContainer1}>
-            <Text>{index}</Text>
+            <Text>{index+1}</Text>
           </View>
           <View style={styles.textContainer2}>
             <Text>{complain.userName}</Text>
@@ -54,6 +56,7 @@ const Complains = () => {
           </View>
         </View>
       ))}
+      </ScrollView>
     </View>
   );
 };
@@ -62,7 +65,7 @@ export default Complains;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    paddingTop: 50,
+    paddingTop: 40,
     paddingHorizontal: 10,
     alignItems: "center",
   },
@@ -116,5 +119,14 @@ const styles = StyleSheet.create({
     width: 350,
     flexDirection: "row",
     justifyContent: "space-between",
+    marginVertical:4,
+    backgroundColor: "whitesmoke",
+    borderRadius: 8,
+    marginVertical: 10,
+    flexDirection: "row",
+    elevation:7,
+  },
+  listContainer:{
+   height:500,
   },
 });

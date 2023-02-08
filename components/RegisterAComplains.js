@@ -29,6 +29,7 @@ const RegisterAComplains = () => {
     try {
       console.log("Function Triggered");
       console.log(input);
+      console.log(BASE_URL);
       console.log("The User id is:", loggedInUser);
       const response = await axios.post(`${BASE_URL}makeComplain`, {
         userId: loggedInUser,

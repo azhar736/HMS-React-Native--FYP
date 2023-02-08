@@ -36,7 +36,7 @@ const BookedRoom = ({ route, navigation }) => {
     const RoomId = route.params.id;
     console.log("Room IDDDDDD===", RoomId);
     const Id=RoomId.toString();
-    console.log("The New IDDDDD====",Id);
+    console.log("The New IDDDDD=====",Id);
     try {
       const response = await axios.post(`${BASE_URL}bookRoom`, {
         bookedByUser: getDataFromLocal.User_Id,

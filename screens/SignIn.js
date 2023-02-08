@@ -38,7 +38,7 @@ const SignIn = () => {
         password,
       });
       const result = await response.data;
-      console.log("The Response from SERVER:", result);
+      console.log("The Response from SERVER::", result);
       if (result.success) {
         const Token = result?.authToken;
         const Name = result?.name;

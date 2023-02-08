@@ -29,7 +29,7 @@ const AllStudents = () => {
   const getAllStudent = async () => {
     try {
       console.log("Function Triggered");
-      console.log(BASE_URL);
+      console.log(BASE_URL)
       const response = await axios.get(`${BASE_URL}allUsers`);
       const data1 = await response.data;
       console.log("The Data from API:", data1.data);

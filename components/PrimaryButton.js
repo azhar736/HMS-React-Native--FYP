@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+    elevation:6,
   },
   buttonPressed: {
     opacity: 0.7,

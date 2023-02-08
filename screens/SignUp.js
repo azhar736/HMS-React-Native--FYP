@@ -97,7 +97,7 @@ const SignUp = () => {
     //We Will accept Only if all fields has values
     if (!isValidObj(userInfo))
       return updateError("Required all fields!", setError);
-    //If Valid name with 3 or more characters
+    //If Valid name with 3 or more characterss
     if (!name.trim() || name.length < 3)
       return updateError("Invalid name!", setError);
     //Only Valid email is allowed
