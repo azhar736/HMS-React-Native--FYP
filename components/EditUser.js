@@ -13,7 +13,7 @@ const EditUser = ({route,navigation}) => {
     const updateUsers = async () => {
         try {
           console.log("UUUSSSER ID on Edit User Page",  route.params.userId);
-          console.log(BASE_URL);
+          console.log("The Base URL on Update User Screen is :: ",BASE_URL);
           console.log(name,email);
             const fetchedUser = await axios.patch(`${BASE_URL}updateUser`, {
               id:  route.params.userId.toString(),
@@ -25,7 +25,7 @@ const EditUser = ({route,navigation}) => {
                 Alert.alert("Updated Successfully","User has been updated successfully",[
                     {
                         text:'ok',
-                        onPress:()=>navigation.navigate("Admin")
+                        onPress:()=>navigation.navigate("Admin",{updateUsers:true})
                     }
                 ]);
                 // navigation.navigate("Admin");

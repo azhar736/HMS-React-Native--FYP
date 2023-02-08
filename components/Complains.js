@@ -41,7 +41,7 @@ const Complains = () => {
       </View>
       <ScrollView style={styles.listContainer}>
       {complains.map((complain, index) => (
-        <View style={styles.formContainer}>
+        <View key={index} style={styles.formContainer}>
           <View style={styles.textContainer1}>
             <Text>{index+1}</Text>
           </View>

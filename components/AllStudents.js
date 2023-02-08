@@ -7,7 +7,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import EditModel from "./EditModel";
 import PrimaryTitle from "./PrimaryTitle";
 import Toggle from "./Toggle";
-const AllStudents = () => {
+const AllStudents = ({updatedUser}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -22,6 +22,11 @@ const AllStudents = () => {
   useEffect(() => {
     getAllStudent();
   }, []);
+
+  useEffect(() => {
+    getAllStudent();
+  }, [updatedUser]);
+  
   useEffect(() => {
     getAllStudent();
   }, [toggle]);
