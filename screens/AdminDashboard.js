@@ -7,6 +7,9 @@ import AllBill from "../components/AllBill";
 import EditModel from "../components/EditModel";
 import AddNewRoom from "../components/AddNewRoom";
 const Drawer = createDrawerNavigator();
+  const Admin = () => {
+    return <AllStudents />;
+  };
 const AllComplain = () => {
   return <Complains />;
 };
@@ -20,10 +23,6 @@ const AdminDashboard = ({route}) => {
   const navigation = useNavigation();
   const Logout = () => {
     navigation.navigate("Login");
-  };
-  // console.log("The Route on AdminDashboard",route.params.updateUsers);
-  const Admin = () => {
-    return <AllStudents updatedUser={route?.params?.updateUsers} />;
   };
   return (
     <Drawer.Navigator

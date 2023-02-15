@@ -20,7 +20,7 @@ const AllBill = () => {
             style={styles.image}
             source={{
               uri:
-                "http://usis.iiu.edu.pk:64453//assets/frontend/img/usis/bgpics2.png",
+                "https://github.com/azhar736/FYP-Images/blob/main/Challan.png?raw=true",
             }}
           />
         </View>
@@ -42,7 +42,7 @@ const AllBill = () => {
             style={styles.image}
             source={{
               uri:
-                "http://usis.iiu.edu.pk:64453//assets/frontend/img/usis/bgpics2.png",
+                "https://github.com/azhar736/FYP-Images/blob/main/Challan.png?raw=true",
             }}
           />
         </View>
@@ -64,7 +64,7 @@ const AllBill = () => {
             style={styles.image}
             source={{
               uri:
-                "http://usis.iiu.edu.pk:64453//assets/frontend/img/usis/bgpics2.png",
+                "https://github.com/azhar736/FYP-Images/blob/main/Challan.png?raw=true",
             }}
           />
         </View>

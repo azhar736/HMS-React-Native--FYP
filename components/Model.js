@@ -1,4 +1,4 @@
-import { Button, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {  Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 // import QRCode from "react-native-qrcode-svg";
 // import QRCode from "react-qr-code";

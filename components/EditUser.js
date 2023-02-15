@@ -12,8 +12,8 @@ const EditUser = ({route,navigation}) => {
     const[email,setEmail]=useState(userMail);
     const updateUsers = async () => {
         try {
-          console.log("UUUSSSER ID on Edit User Page",  route.params.userId);
-          console.log("The Base URL on Update User Screen is :: ",BASE_URL);
+          console.log("UUUSSSER ID on Edit User Page:::",  route.params.userId);
+          console.log("The Base URL on Update User Screen is :: ", BASE_URL);
           console.log(name,email);
             const fetchedUser = await axios.patch(`${BASE_URL}updateUser`, {
               id:  route.params.userId.toString(),

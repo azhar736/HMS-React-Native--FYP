@@ -67,7 +67,7 @@ const UserDahboard = () => {
   const getTokenFromLocalStorage = async () => {
     const userData = await AsyncStorage.getItem("userData");
     const temp = JSON.parse(userData);
-    console.log("The Data from Local Storage in User Dashboard Page:", temp);
+    console.log("The Data from Local Storage in User Dashboard Page::", temp);
     setUserId(temp.User_Id);
     setUserName(temp.User_Name);
     console.log("The LoggedIn User Idddd:", temp.User_Id);
@@ -76,16 +76,16 @@ const UserDahboard = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      console.log("UUUSSSEEERRR ID", userId);
+      console.log("UUUSSSRRR ID", userId);
       console.log(BASE_URL);
       if(userId.length>1){
-        console.log("INSIDE IFFFFFFF");
-        console.log("The Base URL on User Dashboard is::",BASE_URL);
+        console.log("INSIDE IFFFFFFFFFF");
+        console.log("The Base URL on User Dashboard is:::",BASE_URL);
         const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
           id: userId.toString(),
         });
         const response = await fetchedUser.data;
-        console.log("the Response from Booked User API",response)
+        console.log("the Response from Booked User API ::",response)
         if (response?.data?.isActive !== undefined) {
           console.log("USER STATUS", response?.data?.isActive);
           setIsActive(response?.data?.isActive);

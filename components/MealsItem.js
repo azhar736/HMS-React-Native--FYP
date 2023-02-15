@@ -8,7 +8,7 @@ const MealsItem = ({ id, mealName, units }) => {
     // navigation.navigate("ManageExpenses", {
     //   expendeId: id,
     // });
-    console.log("Button Pressed");
+    console.log("Button Pressedss");
   };
   return (
     <Pressable

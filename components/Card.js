@@ -4,7 +4,7 @@ import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 const Card = ({ title, description, price, image, _id,totalSeates,seatsRemaining }) => {
   const navigation = useNavigation();
   const bookedRoom=()=>{
-    console.log("The Remaining Seats ISSSSSS",seatsRemaining);
+    console.log("The Remaining Seats ISSSS",seatsRemaining);
     if(seatsRemaining>0){
       navigation.navigate("RoomDetails", { id: _id })
     }

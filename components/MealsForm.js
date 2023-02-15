@@ -14,7 +14,7 @@ const MealsForm = () => {
   const [meals, setMeals] = useState([]);
   useEffect(() => {
     const fetchList = async () => {
-      console.log("The URL==",BASE_URL);
+      console.log("The URL ::",BASE_URL);
       const response = await axios.get(`${BASE_URL}allMeals`);
       const data1 = response.data;
       // console.log("The meals list", data1.data);

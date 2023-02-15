@@ -19,7 +19,7 @@ const BookedRoom = ({ route, navigation }) => {
     getSingleRoom();
   }, []);
   const getSingleRoom = async () => {
-    console.log("URLLLLLL ====",BASE_URL);
+    console.log("URLLLLLL =====",BASE_URL);
     try {
       const singleRoom = await axios.post(`${BASE_URL}singleRoom`, {
         id: route.params.id,
@@ -36,7 +36,7 @@ const BookedRoom = ({ route, navigation }) => {
     const RoomId = route.params.id;
     console.log("Room IDDDDDD===", RoomId);
     const Id=RoomId.toString();
-    console.log("The New IDDDDD=====",Id);
+    console.log("The New IDDDDD========",Id);
     try {
       const response = await axios.post(`${BASE_URL}bookRoom`, {
         bookedByUser: getDataFromLocal.User_Id,
@@ -66,7 +66,7 @@ const BookedRoom = ({ route, navigation }) => {
         <Image
           source={{
             uri:
-              "http://usis.iiu.edu.pk:64453//assets/frontend/img/usis/bgpics3.jpg",
+              "https://pix10.agoda.net/hotelImages/34737134/0/53aa6043102c728c3d46616d413a22ee.jpg?ce=0&s=450x450",
           }}
           style={styles.image}
         />

@@ -12,9 +12,9 @@ const Home = ({ navigation, route }) => {
   const [showRoom, setShowRoom] = useState(true);
   const [Rooms, setRooms] = useState([]);
   console.log("The id from the params ",route.params.id);
-  console.log("The name from the params ",route.params.username);
+  console.log("The name from the params::: ",route.params.username);
   const fetchUsers = async () => {
-    console.log("Home Page:",BASE_URL);
+    console.log("Home Page::",BASE_URL);
     try {
       const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
         id: route.params.id,
@@ -32,7 +32,7 @@ const Home = ({ navigation, route }) => {
     }
   };
   const getAllRooms = async () => {
-    console.log("The Base on Home Page is::",BASE_URL);
+    console.log("The Base on Home Page is ::",BASE_URL);
     const response = await axios.get(`${BASE_URL}allRooms`);
     const data1 = response.data;
     setRooms(data1.data);

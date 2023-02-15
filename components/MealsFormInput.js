@@ -17,8 +17,8 @@ const MealsFormInput = ({
   const [input, setInput] = useState(0);
   const [showConfirm, setShowConfirm] = useState(true);
   const confirmButtonHandler = () => {
-    console.log("Button Presssed");
-    console.log("The Input Value:",input);
+    console.log("Button Pressseddd");
+    console.log("The Input Value::",input);
     if(input>0){
       setSum(Number(input) + sum);
     setShowConfirm(false);

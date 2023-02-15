@@ -36,7 +36,7 @@ const QRScanner = ({ navigation }) => {
     setText(data);
     console.log("The Data is:", data);
     try {
-      console.log("Function Triggereddd");
+      console.log("Function Triggereddddd");
       const response = await axios.post(`${BASE_URL}markAttendence`, {
         userId: userId,
         noOfUnits: data,

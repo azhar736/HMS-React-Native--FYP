@@ -3,17 +3,9 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "@env";
 import axios from "axios";
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import EditModel from "./EditModel";
 import PrimaryTitle from "./PrimaryTitle";
 import Toggle from "./Toggle";
 const AllStudents = ({updatedUser}) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Edit", value: "edit" },
-    { label: "Delete", value: "delete" },
-  ]);
   const [selectedItems, setSelectedItems] = useState("");
   const navigation = useNavigation();
   const [studentsList, setStudentsList] = useState([]);
@@ -22,10 +14,6 @@ const AllStudents = ({updatedUser}) => {
   useEffect(() => {
     getAllStudent();
   }, []);
-
-  useEffect(() => {
-    getAllStudent();
-  }, [updatedUser]);
   
   useEffect(() => {
     getAllStudent();
@@ -37,7 +25,7 @@ const AllStudents = ({updatedUser}) => {
       console.log(BASE_URL)
       const response = await axios.get(`${BASE_URL}allUsers`);
       const data1 = await response.data;
-      console.log("The Data from API:", data1.data);
+      console.log("The Data from API::", data1.data);
       setStudentsList(data1.data);
     } catch (error) {
       console.log("error: ", error.message);
@@ -72,7 +60,7 @@ const AllStudents = ({updatedUser}) => {
   };
 
   const deletUsers = async ({userId}) => {
-    console.log("The USER ID i Want to Delete",userId);
+    console.log("The USER ID  Want to Delete",userId);
     console.log(BASE_URL);
     try {
       setToggle(false);

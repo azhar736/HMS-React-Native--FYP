@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import PrimaryTitle from "../components/PrimaryTitle";
 import PrimaryButton from "../components/PrimaryButton";
 const Profile = () => {
   return (

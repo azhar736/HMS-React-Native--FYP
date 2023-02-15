@@ -4,6 +4,7 @@ import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";
 import { BASE_URL } from "@env";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 const AddNewRoom = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -11,13 +12,13 @@ const AddNewRoom = () => {
   const [totalSeates, setTotalSeates] = useState("");
   const [seatsRemaining, setSeatRemaining] = useState("");
   const [isBooked, setIsBooked] = useState(false);
-
+  const navigation = useNavigation();
   const seatHandler = (e) => {
     setTotalSeates(e);
     setSeatRemaining(e);
   };
   const bookRoom = async () => {
-    console.log(BASE_URL);
+    console.log("The Base URL on Add New Room Page ::",BASE_URL);
     try {
       const response = await axios.post(`${BASE_URL}addRoom`, {
         title,
@@ -28,7 +29,14 @@ const AddNewRoom = () => {
         isBooked,
       });
       const data1 = await response.data;
-      console.log("The Data from the server", data1);
+      console.log("The Data from the server ::", data1);
+      if(data1.data){
+        console.log("SUccess")
+        navigation.goBack("Admin");
+      }
+      else{
+        console.log("Failed to")
+      }
     } catch (error) {
       console.log("error", error.message);
     }

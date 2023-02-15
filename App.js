@@ -21,7 +21,7 @@ import SubmitBills from "./components/SubmitBills";
 import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
 import DeleteUser from "./components/DeleteUser";
-
+import AddNewRoom from "./components/AddNewRoom";
 export default function App() {
   const SubmitBill = () => {
     return (
@@ -52,6 +52,7 @@ export default function App() {
         <Stack.Screen name="UserProfile" component={UserProfile} />
         <Stack.Screen name="EditUser" component={EditUser} />
         <Stack.Screen name="DeleteUser" component={DeleteUser} />
+        <Stack.Screen name="AddNewRoom" component={AddNewRoom} />
         {/* <SignUp /> */}
         {/* <SignIn /> */}
         {/* <Profile /> */}

@@ -14,7 +14,7 @@ const Toggle = ({ userId, status }) => {
   const UpdateUserStatus = async () => {
     try {
       setLoading(true);
-      console.log("The Base URL is==",BASE_URL);
+      console.log("The Base URL  on Edit User Page is ",BASE_URL);
       const response = await axios.patch(`${BASE_URL}setStatus`, {
         id: userId,
         status: isEnabled,

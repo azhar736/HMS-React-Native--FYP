@@ -27,10 +27,10 @@ const RegisterAComplains = () => {
 
   const complain = async () => {
     try {
-      console.log("Function Triggered");
+      console.log("Function Triggeredddd");
       console.log(input);
       console.log(BASE_URL);
-      console.log("The User id is:", loggedInUser);
+      console.log("The User id is::", loggedInUser);
       const response = await axios.post(`${BASE_URL}makeComplain`, {
         userId: loggedInUser,
         complainMessage: input,

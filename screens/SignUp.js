@@ -63,7 +63,7 @@ const SignUp = () => {
   };
 
   const sendRequest = async () => {
-    console.log(`${BASE_URL}addUser`);
+    console.log(`The Base URL on SignUp Page ::: ${BASE_URL}addUser`);
     setLoader(true);
     try {
       const response = await axios.post(`${BASE_URL}addUser`, {

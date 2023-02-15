@@ -6,14 +6,14 @@ import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";
 
 const UserProfile = ({ route, navigation }) => {
-  console.log("The USer ID on Profile Screens:", route.params.userId);
+  console.log("The USer ID on Profile Screens::", route.params.userId);
   const [name,setName]=useState("");
   const [email,setEmail] = useState("");
   const [accountStatus,setAccountStatus] = useState("");
   const [seatNo,setSeatNo] = useState("");
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log("Base Url on Profile Page is",BASE_URL);
+      console.log("Base Url on Profile Page is:",BASE_URL);
       try {
         const response = await axios.post(`${BASE_URL}singleUser`, {
             id: route.params.userId,

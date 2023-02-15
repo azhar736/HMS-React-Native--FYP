@@ -6,15 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import axios from "axios";
 import { isValidObj } from "./SignUp";
-import { isValidEmail } from "./SignUp";
 import { updateError } from "./SignUp";
-import {
-  BASE_URL,
-  ADMIN_USER,
-  ADMIN_PASSWORD,
-  WORKER_ADMIN_USER,
-  WORKER_ADMIN_PASSWORD,
-} from "@env";
+import {BASE_URL, ADMIN_USER, ADMIN_PASSWORD ,WORKER_ADMIN_USER , WORKER_ADMIN_PASSWORD} from "@env"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../components/Loader";
 const SignIn = () => {
@@ -30,7 +23,7 @@ const SignIn = () => {
   };
 
   const sendRequest = async () => {
-    console.log(`${BASE_URL}loginUser`);
+    console.log(`The Base URL on SignIn Page :: ${BASE_URL}`);
     setLoader(true);
     try {
       const response = await axios.post(`${BASE_URL}loginUser`, {
@@ -86,6 +79,7 @@ const SignIn = () => {
       //SubmitForm
       console.log("Form is Valid");
       if (email === ADMIN_USER) {
+        console.log("Checking Admin User");
         if (password === ADMIN_PASSWORD) {
           navigation.navigate("Admin");
         } else {

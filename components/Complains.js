@@ -10,7 +10,7 @@ const Complains = () => {
   }, []);
 
   const Allcomplain = async () => {
-    console.log(BASE_URL);
+    console.log("The URL on Complain Page is :::",BASE_URL);
     try {
       const response = await axios.get(`${BASE_URL}allComplains`);
       // console.log("The Response=", response.data);
@@ -22,7 +22,7 @@ const Complains = () => {
     }
   };
 
-  console.log("ALL COMPLAINS", complains);
+  console.log("ALL COMPLAINS::", complains);
   return (
     <View style={styles.rootContainer}>
       <View style={styles.headingContainer}>

@@ -13,11 +13,11 @@ const SudentList = () => {
 
   const getAllStudent = async () => {
     try {
-      console.log("Function Triggereddd");
+      console.log("Function Triggedddd");
       console.log(BASE_URL);
       const response = await axios.get(`${BASE_URL}allUsers`);
       const data1 = await response.data;
-      console.log("The Data from API::", data1.data);
+      console.log("The Data from API:", data1.data);
       setStudentsList(data1.data);
     } catch (error) {
       console.log("error: ", error.message);

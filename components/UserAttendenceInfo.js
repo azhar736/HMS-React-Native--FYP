@@ -3,7 +3,6 @@ import { shareAsync } from "expo-sharing";
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "./PrimaryButton";
-import PrimaryTitle from "./PrimaryTitle";
 const UserAttendenceInfo = () => {
   const [name, setName] = useState("");
   const html = `
