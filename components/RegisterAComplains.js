@@ -1,7 +1,7 @@
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "./PrimaryButton";
 import PrimaryTitle from "./PrimaryTitle";
-import { BASE_URL } from "@env";
+import  BASE_URL  from "../config/env.config";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -28,7 +28,7 @@ const RegisterAComplains = () => {
   const complain = async () => {
     try {
       console.log("Function Triggeredddd");
-      console.log(input);
+      // console.log(input);
       console.log(BASE_URL);
       console.log("The User id is::", loggedInUser);
       const response = await axios.post(`${BASE_URL}makeComplain`, {

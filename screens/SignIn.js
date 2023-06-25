@@ -7,9 +7,15 @@ import { useState } from "react";
 import axios from "axios";
 import { isValidObj } from "./SignUp";
 import { updateError } from "./SignUp";
-import {BASE_URL, ADMIN_USER, ADMIN_PASSWORD ,WORKER_ADMIN_USER , WORKER_ADMIN_PASSWORD} from "@env"
+import {
+  ADMIN_USER,
+  ADMIN_PASSWORD,
+  WORKER_ADMIN_USER,
+  WORKER_ADMIN_PASSWORD,
+} from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../components/Loader";
+import BASE_URL  from "../config/env.config"
 const SignIn = () => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -46,17 +52,21 @@ const SignIn = () => {
             })
           );
           setLoader(false);
+          // navigation.navigate("Home", {
+          //   id: Userid,
+          //   username: Name,
+          // });
           navigation.navigate("Home", {
             id: Userid,
-            username:Name,
+            username: Name,
           });
         }
       } else {
         setLoader(false);
         setErrorValue(result.message);
-        setTimeout(()=>{
+        setTimeout(() => {
           setErrorValue("");
-        },2000);
+        }, 2000);
       }
     } catch (error) {
       setLoader(false);
@@ -77,7 +87,9 @@ const SignIn = () => {
   const formSubmit = () => {
     if (isValidForm()) {
       //SubmitForm
+
       console.log("Form is Valid");
+      // sendRequest();
       if (email === ADMIN_USER) {
         console.log("Checking Admin User");
         if (password === ADMIN_PASSWORD) {

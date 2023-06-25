@@ -12,7 +12,11 @@
         "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {
+      "env": {
+        "API_URL": "https://jade-aggressive-calf.cyclic.app/"
+      }
+    }
   },
   "submit": {
     "production": {}

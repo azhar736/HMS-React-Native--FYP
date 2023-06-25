@@ -3,7 +3,7 @@ import { Alert, Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BASE_URL } from "@env";
+import BASE_URL  from "../config/env.config";
 import axios from "axios";
 const QRScanner = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -25,7 +25,7 @@ const QRScanner = ({ navigation }) => {
 
   const getTokenFromLocalStorage = async () => {
     const userData = await AsyncStorage.getItem("userData");
-    // console.log("The Data from Local storage=", userData);
+    console.log("The Data from Local storage on QR CODE Screen is=", userData);
     const temp = JSON.parse(userData);
     console.log(temp.User_Id);
     setUserId(temp.User_Id);

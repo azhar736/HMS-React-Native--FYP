@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import MealList from "./MealList";
 import { useNavigation } from "@react-navigation/native";
 import PrimaryTitle from "./PrimaryTitle";
-import { BASE_URL } from "@env";
+import BASE_URL from "../config/env.config" 
 import axios from "axios";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";

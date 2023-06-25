@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "@env";
+import BASE_URL  from "../config/env.config"
 import {
   FlatList,
   ScrollView,
@@ -15,11 +15,16 @@ const MealList = () => {
   const [meals, setMeals] = useState([]);
   useEffect(() => {
     const fetchList = async () => {
+    try {
       console.log("The URL on Meal List Component is :",BASE_URL);
       const response = await axios.get(`${BASE_URL}allMeals`);
       const data1 = response.data;
-      // console.log("The meals list", data1.data);
+      console.log("The meals list", data1.data);
       setMeals(data1.data);
+      
+    } catch (error) {
+      console.log(error);
+    }
     };
     fetchList();
   }, []);

@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { BASE_URL } from "@env";
+import BASE_URL  from "../config/env.config";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

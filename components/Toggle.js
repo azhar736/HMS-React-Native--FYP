@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Switch, StyleSheet, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { BASE_URL } from "@env";
+import  BASE_URL  from "../config/env.config";
 import axios from "axios";
 const Toggle = ({ userId, status }) => {
   const [loading, setLoading] = useState(false);

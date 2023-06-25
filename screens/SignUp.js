@@ -4,7 +4,7 @@ import PrimaryTitle from "../components/PrimaryTitle";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { BASE_URL } from "@env";
+import BASE_URL  from "../config/env.config"
 import axios from "axios";
 import Loader from "../components/Loader";
 
@@ -63,7 +63,7 @@ const SignUp = () => {
   };
 
   const sendRequest = async () => {
-    console.log(`The Base URL on SignUp Page ::: ${BASE_URL}addUser`);
+    console.log(`The Base URL on SignUp Page ::: ${BASE_URL}`);
     setLoader(true);
     try {
       const response = await axios.post(`${BASE_URL}addUser`, {

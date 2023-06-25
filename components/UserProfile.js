@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import axios from "axios";
-import { BASE_URL } from "@env";
+import  BASE_URL  from "../config/env.config";
 import { useEffect } from "react";
 import PrimaryButton from "./PrimaryButton";
 import { useState } from "react";

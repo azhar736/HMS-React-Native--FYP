@@ -1,32 +1,35 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "@env";
+import BASE_URL from "../config/env.config";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import axios from "axios";
 const BookedRoom = ({ route, navigation }) => {
   const [noOFSEATS, setNoOFSEATS] = useState(1);
   const [getDataFromLocal, setGetDataFromLocal] = useState("");
-  const [roomDetails,setRoomDetails] = useState("");
+  const [roomDetails, setRoomDetails] = useState("");
   useEffect(() => {
     const getTokenFromLocalStorage = async () => {
       const userData = await AsyncStorage.getItem("userData");
       var storageObj = JSON.parse(userData);
       setGetDataFromLocal(JSON.parse(userData));
-      // console.log("The Data from Local storage=", storageObj);
+      console.log("The Data from Local storage=", storageObj);
     };
     getTokenFromLocalStorage();
     getSingleRoom();
   }, []);
   const getSingleRoom = async () => {
-    console.log("URLLLLLL =====",BASE_URL);
+    console.log("URLLLLLL =====", BASE_URL);
     try {
       const singleRoom = await axios.post(`${BASE_URL}singleRoom`, {
         id: route.params.id,
       });
       const response = await singleRoom.data;
-      console.log("The Signle Room Data from the API is === :: ", response.data);
-      setRoomDetails(response.data)
+      console.log(
+        "The Signle Room Data from the API is === :: ",
+        response.data
+      );
+      setRoomDetails(response.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -35,8 +38,8 @@ const BookedRoom = ({ route, navigation }) => {
     console.log(`${BASE_URL}bookRoom`);
     const RoomId = route.params.id;
     console.log("Room IDDDDDD===", RoomId);
-    const Id=RoomId.toString();
-    console.log("The New IDDDDD========",Id);
+    const Id = RoomId.toString();
+    console.log("The New IDDDDD========", Id);
     try {
       const response = await axios.post(`${BASE_URL}bookRoom`, {
         bookedByUser: getDataFromLocal.User_Id,
@@ -58,15 +61,20 @@ const BookedRoom = ({ route, navigation }) => {
       navigation.navigate("UserDashboard");
     }
   };
-  console.log("The Data in the State Variable is:",roomDetails);
+  console.log("The Data in the State Variable is:", roomDetails);
+  const imagePathArray = roomDetails.image;
+  console.log(imagePathArray);
+  const imagePath = imagePathArray?imagePathArray[0]:"";
+  console.log("The image path is::", imagePath);
+  const imageUrl = `${BASE_URL}${imagePath}`;
+  console.log("The image url is::", imageUrl);
   return (
     <View style={styles.rootContainer}>
       <View style={styles.imageContainer}>
         {/*Images */}
         <Image
           source={{
-            uri:
-              "https://pix10.agoda.net/hotelImages/34737134/0/53aa6043102c728c3d46616d413a22ee.jpg?ce=0&s=450x450",
+            uri: imageUrl,
           }}
           style={styles.image}
         />
@@ -78,9 +86,7 @@ const BookedRoom = ({ route, navigation }) => {
         </View>
         <View>
           {/*Details */}
-          <Text style={styles.text}>
-          {roomDetails.description}
-          </Text>
+          <Text style={styles.text}>{roomDetails.description}</Text>
         </View>
       </View>
       <View>
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   text: {
-    marginTop:8,
+    marginTop: 8,
     fontSize: 14,
     fontWeight: "400",
     lineHeight: 18,

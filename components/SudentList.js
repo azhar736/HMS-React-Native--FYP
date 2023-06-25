@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PrimaryTitle from "./PrimaryTitle";
 import Toggle from "./Toggle";
-import { BASE_URL } from "@env";
+import  BASE_URL  from "../config/env.config";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const SudentList = () => {

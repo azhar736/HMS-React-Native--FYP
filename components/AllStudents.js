@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "@env";
+import BASE_URL  from "../config/env.config";
 import axios from "axios";
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryTitle from "./PrimaryTitle";

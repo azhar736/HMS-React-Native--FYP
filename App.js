@@ -4,8 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { store } from "./store/store";
-import { Provider } from "react-redux";
 import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import SignIn from "./screens/SignIn";
@@ -22,6 +20,7 @@ import UserProfile from "./components/UserProfile";
 import EditUser from "./components/EditUser";
 import DeleteUser from "./components/DeleteUser";
 import AddNewRoom from "./components/AddNewRoom";
+import HomeScreen from "./screens/HomeScreen";
 export default function App() {
   const SubmitBill = () => {
     return (
@@ -42,6 +41,7 @@ export default function App() {
         <Stack.Screen name="Signup" component={SignUp} />
         <Stack.Screen name="Login" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
         <Stack.Screen name="RoomDetails" component={BookedRoom} />
         <Stack.Screen name="UserDashboard" component={UserDahboard} />
         <Stack.Screen name="Scanner" component={QRScanner} />

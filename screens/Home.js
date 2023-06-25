@@ -7,20 +7,20 @@ import Slider from "../components/Slider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "@env";
+import BASE_URL  from "../config/env.config"
 const Home = ({ navigation, route }) => {
   const [showRoom, setShowRoom] = useState(true);
   const [Rooms, setRooms] = useState([]);
-  console.log("The id from the params ",route.params.id);
-  console.log("The name from the params::: ",route.params.username);
+  console.log("The id from the params ", route.params.id);
+  console.log("The name from the params::: ", route.params.username);
   const fetchUsers = async () => {
-    console.log("Home Page::",BASE_URL);
+    console.log("Home Page::", BASE_URL);
     try {
       const fetchedUser = await axios.post(`${BASE_URL}singleUser`, {
         id: route.params.id,
       });
       const response = await fetchedUser.data;
-      console.log("The Response from Server on Home Page",response);
+      console.log("The Response from Server on Home Page", response);
       if (response?.data?.roomId?.length > 0) {
         navigation.replace("UserDashboard");
       } else {
@@ -32,8 +32,9 @@ const Home = ({ navigation, route }) => {
     }
   };
   const getAllRooms = async () => {
-    console.log("The Base on Home Page is ::",BASE_URL);
+    console.log("The Base on Home Page is ::", BASE_URL);
     const response = await axios.get(`${BASE_URL}allRooms`);
+    console.log("The All Room is ::",response.data);
     const data1 = response.data;
     setRooms(data1.data);
   };
@@ -47,7 +48,12 @@ const Home = ({ navigation, route }) => {
   }, []);
   return (
     <>
-      {showRoom && (
+      {/* <View
+        style={{ flex: "1", alignItems: "center", justifyContent: "center" }}
+      >
+        <Text>Welcome to Home Screen 2</Text>
+      </View> */}
+      {showRoom ? (
         <ScrollView style={styles.rootContainer}>
           <View>
             <Text style={styles.title}>Hello, {route.params.username}</Text>
@@ -69,6 +75,14 @@ const Home = ({ navigation, route }) => {
           ))}
           </View>
         </ScrollView>
+      ):(
+        <View
+        style={{ flex: "1", alignItems: "center", justifyContent: "center" }}
+      >
+        <Text>
+          All Room are Booked!
+        </Text>
+      </View>
       )}
     </>
   );
@@ -127,7 +141,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 300,
     borderRadius: 30,
-    paddingLeft:8,
+    paddingLeft: 8,
   },
   ratingContainer: {
     borderWidth: 2,

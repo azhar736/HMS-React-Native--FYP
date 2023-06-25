@@ -1,7 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
-
+import BASE_URL from "../config/env.config";
 const Card = ({ title, description, price, image, _id,totalSeates,seatsRemaining }) => {
+  console.log("The Props on Room card is::",description, price,image);
+  const imagePathArray = image;
+  const imagePath = imagePathArray[0];
+  console.log("The image path is::",imagePath);
+  const imageUrl = `${BASE_URL}${imagePath}`;
+  console.log("The image url is::",imageUrl);
   const navigation = useNavigation();
   const bookedRoom=()=>{
     console.log("The Remaining Seats ISSSS",seatsRemaining);
@@ -18,7 +24,7 @@ const Card = ({ title, description, price, image, _id,totalSeates,seatsRemaining
       style={styles.rootContainer}
     >
       <View style={styles.imageContainer}>
-        <Image style={{height:"100%",width:"100%",borderRadius: 20}} source={{uri:'https://pix10.agoda.net/hotelImages/34737134/0/53aa6043102c728c3d46616d413a22ee.jpg?ce=0&s=450x450'}} />
+        <Image style={{height:"100%",width:"100%",borderRadius: 20}} source={{uri:imageUrl}} />
       </View>
       <View style={styles.textContainer}>
         <View style={styles.headingContainer}>

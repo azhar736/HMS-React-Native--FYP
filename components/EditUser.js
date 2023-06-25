@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import axios from "axios";
-import { BASE_URL } from "@env";
+import  BASE_URL  from "../config/env.config";
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
 import PrimaryButton from './PrimaryButton';
 import PrimaryTitle from './PrimaryTitle';

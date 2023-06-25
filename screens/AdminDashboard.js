@@ -6,6 +6,7 @@ import Complains from "../components/Complains";
 import AllBill from "../components/AllBill";
 import EditModel from "../components/EditModel";
 import AddNewRoom from "../components/AddNewRoom";
+import AddMeal from "../components/AddMeal"
 const Drawer = createDrawerNavigator();
   const Admin = () => {
     return <AllStudents />;
@@ -19,6 +20,9 @@ const AllBills = () => {
 const AddRoom = () => {
   return <AddNewRoom />;
 };
+const AddMeals=()=>{
+  return <AddMeal />
+}
 const AdminDashboard = ({route}) => {
   const navigation = useNavigation();
   const Logout = () => {
@@ -35,6 +39,7 @@ const AdminDashboard = ({route}) => {
       <Drawer.Screen name="All Complains" component={AllComplain} />
       <Drawer.Screen name="All Bills" component={AllBills} />
       <Drawer.Screen name="Add Room" component={AddRoom} />
+      <Drawer.Screen name="Add Meal" component={AddMeals} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
